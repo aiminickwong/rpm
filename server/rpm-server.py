@@ -1,0 +1,45 @@
+import struct, socket
+import binascii
+import netifaces as ni
+import requests
+import time
+from threading import Thread
+from requests.packages import urllib3
+from ConfigParser import ConfigParser
+urllib3.disable_warnings()
+
+
+config = ConfigParser()
+config.read('rpm-server.conf')
+interface = config.get('server', 'broadcast_interface')
+broadcast_address = config.get('server', 'broadcast_address')
+rpm_address = config.get('server','rpm_address')
+query_interval = config.get('server','query_interval')
+ni.ifaddresses(interface)
+ip = ni.ifaddresses(interface)[2][0]['addr']
+def wakeonlan(ethernet_address):
+    addr_byte = ethernet_address.split(':')
+    hw_addr = struct.pack('BBBBBB', int(addr_byte[0], 16),
+    int(addr_byte[1], 16),
+    int(addr_byte[2], 16),
+    int(addr_byte[3], 16),
+    int(addr_byte[4], 16),
+    int(addr_byte[5], 16))
+    msg = '\xff' * 6 + hw_addr * 16
+    s.sendto(msg, (broadcast_address, 7))
+    return
+while True:
+    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    s.bind((ip,0))
+    s.setsockopt(socket.SOL_SOCKET, socket.SO_BROADCAST, 1)
+    link = rpm_address + "/get_pm.php?type=show_power_on"
+    response = requests.get(link, verify=False)
+    maclist=response.text.split("\n")
+    x=0
+    for mac_address in maclist:
+	if maclist[x]:
+	    t = Thread(target=wakeonlan, args=(maclist[x],))
+	    #t.start()
+	    x += 1
+    s.close()
+    time.sleep(query_interval)
