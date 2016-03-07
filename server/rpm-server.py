@@ -1,5 +1,4 @@
 import struct, socket
-import binascii
 import netifaces as ni
 import requests
 import time
@@ -42,4 +41,4 @@ while True:
 	    t.start()
 	    x += 1
     s.close()
-    time.sleep(query_interval)
+    time.sleep(float(query_interval))
