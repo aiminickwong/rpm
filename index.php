@@ -1,3 +1,17 @@
+<?php
+/*
+Remote Power Management
+Tadas Ustinavičius
+tadas at ring.lt
+
+Vilnius University.
+Center of Information Technology Development.
+
+
+Vilnius,Lithuania.
+2016-03-08
+*/
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -45,10 +59,10 @@
                         <form role="form" method="post" action="login.php">
                             <fieldset>
                                 <div class="form-group">
-                                    <input class="form-control" placeholder="Username" name="username" type="username" autofocus>
+                                    <input class="form-control" placeholder="Username" name="username" type="username" autofocus required>
                                 </div>
                                 <div class="form-group">
-                                    <input class="form-control" placeholder="Password" name="password" type="password" value="">
+                                    <input class="form-control" placeholder="Password" name="password" type="password" value="" required>
                                 </div>
                                 <input type="submit" value="Login" class="btn btn-lg btn-success btn-block">
                             </fieldset>
