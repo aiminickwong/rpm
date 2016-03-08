@@ -21,7 +21,7 @@ Vilnius,Lithuania.
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
-    <meta name="author" content="">
+    <meta name="author" content="Tadas Ustinavičius">
 
     <title>Remote Power Management</title>
 
@@ -53,7 +53,13 @@ Vilnius,Lithuania.
             <div class="col-md-4 col-md-offset-4">
                 <div class="login-panel panel panel-default">
                     <div class="panel-heading">
-                        <h3 class="panel-title">Please Sign In</h3>
+                        <h3 class="panel-title">Please Sign In
+				    <span class="pull-right">
+                                    <a href="https://github.com/Seitanas/rpm" target="_new">
+                                        <span class="fa fa-info-circle glyphicon glyphicon-collapse-up"></span>
+                                    </a>
+                        	    </span></h3>
+			<div class="clearfix"></div>
                     </div>
                     <div class="panel-body">
                         <form role="form" method="post" action="login.php">
