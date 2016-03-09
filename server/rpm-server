@@ -1,3 +1,5 @@
+#!/usr/bin/python
+
 import struct, socket
 import netifaces as ni
 import requests
