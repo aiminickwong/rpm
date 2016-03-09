@@ -140,7 +140,7 @@ void ControlHandler(DWORD request){
 int daemonize(void){
     if(read_config())
         return 0;
-    sprintf(request + strlen(request),"/rpm/get_pm.php?");
+    sprintf(request + strlen(request),"/get_pm.php?");
     get_maclist();
     SERVICE_TABLE_ENTRY ServiceTable[2];
     ServiceTable[0].lpServiceName = "rpm-agent";
