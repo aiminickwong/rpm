@@ -215,8 +215,7 @@ int read_config(){
     sprintf(cwd,"c:\\rpm-agent.conf");
     #endif // _WIN32
     #ifdef linux
-    getcwd(cwd, sizeof(cwd));
-    sprintf(cwd + strlen(cwd),"/rpm-agent.conf");
+    sprintf(cwd "/etc/rpm-agent.conf");
     #endif // linux
     config_t cfg, *cf;
     const config_setting_t *retries;
