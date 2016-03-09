@@ -195,7 +195,7 @@ void delay_s(int seconds){
 void daemonize(){
     if(read_config())
         exit(0);
-    sprintf(request + strlen(request),"/rpm/get_pm.php?");
+    sprintf(request + strlen(request),"/get_pm.php?");
     get_maclist();
     pid_t mypid;
     FILE *pid;
