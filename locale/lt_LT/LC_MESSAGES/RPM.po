@@ -67,9 +67,9 @@ msgstr "Nuotolinis įjungimo/išjungimo valdymas"
 msgid "Settings"
 msgstr "Nustatymai"
 
-#: /var/www/html/rpm/dashboard.php:130
+#: /var/www/html/rpm/dashboard.php
 msgid "Logout"
-msgstr "Išdėstymas"
+msgstr "Atsijungti"
 
 #: /var/www/html/rpm/dashboard.php:143
 msgid "Dashboard"
