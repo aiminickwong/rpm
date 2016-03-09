@@ -9,7 +9,7 @@ Center of Information Technology Development.
 
 
 Vilnius,Lithuania.
-2016-03-03
+2016-03-09
 */
 require_once("functions/functions.php");
 if (!check_session()){
@@ -33,7 +33,7 @@ while (!empty($client_array[$x]['clientname'])){
 	$json_data=$json_data.'
 		    [
 		    "' . $client_array[$x]['clientname'] . '",
-		    "' . $client_array[$x]['mac'] . '",
+		    "' . strtoupper($client_array[$x]['mac']) . '",
 		    "' . $client_array[$x]['groups'] . '",
 		    "<input type=\"hidden\" class=\"clientid\" name=\"' . $client_array[$x]['id']  .  '\"><input type=\"checkbox\"' . $cb . ' class=\"clientid\" name=\"' . $client_array[$x]['id']  .  '\">' . $delete_button .'"
 		    ]';
