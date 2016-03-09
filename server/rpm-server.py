@@ -9,7 +9,7 @@ urllib3.disable_warnings()
 
 
 config = ConfigParser()
-config.read('rpm-server.conf')
+config.read('/etc/rpm-server/rpm-server.conf')
 interface = config.get('server', 'broadcast_interface')
 broadcast_address = config.get('server', 'broadcast_address')
 rpm_address = config.get('server','rpm_address')
