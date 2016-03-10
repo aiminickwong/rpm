@@ -143,7 +143,7 @@ msgstr "Grupė"
 
 #: /var/www/html/rpm/dashboard.php:297
 msgid "Power ON/OFF"
-msgstr "Išjungti/Įjunti"
+msgstr "Išjungti/Įjungti"
 
 #: /var/www/html/rpm/dashboard.php:315
 msgid " Notifications Panel"
