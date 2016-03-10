@@ -9,7 +9,7 @@ Center of Information Technology Development.
 
 
 Vilnius,Lithuania.
-2016-03-08
+2016-03-10
 */
 require_once("functions/functions.php");
 include ("functions/config.php");
@@ -299,7 +299,7 @@ set_lang();
 				    <select class="form-control" id="group_select">
 					<option value=""><?php echo _("All groups");?></option>
 					<?php
-					$group_array=get_SQL_array("SELECT name FROM groups");
+					$group_array=get_SQL_array("SELECT name FROM groups ORDER BY name ASC");
 					$x=0;
 					while (!empty($group_array[$x]['name'])){
 					    echo "<option>" . $group_array[$x]['name'] . "</option>\n";
