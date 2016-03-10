@@ -293,6 +293,22 @@ set_lang();
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">
+			    <div class="row">
+				<div class="col-md-2 col-md-offset-5">
+				    <label for="sel1"><?php echo _("Filter by group:");?></label>
+				    <select class="form-control" id="group_select">
+					<option value=""><?php echo _("All groups");?></option>
+					<?php
+					$group_array=get_SQL_array("SELECT name FROM groups");
+					$x=0;
+					while (!empty($group_array[$x]['name'])){
+					    echo "<option>" . $group_array[$x]['name'] . "</option>\n";
+					    ++$x;
+					    }
+					 ?>
+				    </select>
+				</div>
+			    </div>
                             <div class="dataTable_wrapper" id="client_list">
                                 <table width="100%" class="table table-striped table-bordered table-hover" id="dataTable1">
                                     <thead>
@@ -418,6 +434,12 @@ $(document).ready(function() {
 		}
 	    }
         });
+    $('#group_select').change( function() { 
+	oTable
+	    .columns(2)
+	    .search(this.value)
+	    .draw();
+       });
     $("#power_submit").click(function(){
 	$.ajax({
     	    url: "pm.php",
@@ -444,6 +466,9 @@ function update_datatable1() {
     }
     
     </script>
+<script>
+
+</script>
     <script>
 	$("#select_all").click(function(){
 	    $('.clientid').not(this).prop('checked', this.checked);

@@ -180,3 +180,9 @@ msgstr "Įtraukti klientus į grupę"
 #: /var/www/html/rpm/settings.php:33
 msgid "Choose your language"
 msgstr "Pasirinkite kalbą"
+
+msgid "Filter by group:"
+msgstr "Filtruoti pagal grupę"
+
+msgid "All groups"
+msgstr "Visos grupės"
