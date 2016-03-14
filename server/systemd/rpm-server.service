@@ -1,0 +1,12 @@
+[Unit]
+After=syslog.target
+Description=rpm-server
+
+[Service]
+Type=simple
+User=root
+ExecStart=/usr/local/bin/rpm-server
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
