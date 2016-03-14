@@ -2,7 +2,7 @@ Remote Power Management
 =======
 
 RPM uses WOL (Wake On LAN) and small agent on OS side to turn computers on or off via network.
-The center of this solution is a web service - dashboard. Wake On LAN server and OS agents queries web service for the state of computers.
+The center of this solution is a web service - dashboard. Wake On LAN server and OS agents query the web service for the state of computers.
 
 To install dashboard, simply unpack it into web directory and edit functions/config.php file.
 
