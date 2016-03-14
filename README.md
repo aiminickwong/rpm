@@ -21,7 +21,7 @@ To install agent on Linux:
 configure /etc/rpm-agent/rpm.agent file to fit your needs.
 Create systemd service (rpm-agent.service is provided).
 
-To install agent on Linux:
+To install agent on Windows:
 copy rpm-agent.exe and library files from agent/win32-bin folder to Windows computer. Copy rpm-agent.conf to c:\ drive. Create rpm-agent service:
 
     SC create rpm-agent displayname= "RPM Agent" binpath= "path_to\rpm-agent.exe" start= auto
