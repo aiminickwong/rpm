@@ -22,10 +22,9 @@ $x=0;
 while ($x<=$client_count){
     $client_data=explode(",",$clients[$x]);
     $clientname=$client_data[0];
-    $clientmac=$client_data[1];
+    $clientmac=str_replace(" ","",$client_data[1]);
     if (!empty($clientname)&&!empty($clientmac)){
 	add_SQL_line("INSERT INTO clients (name, mac, state) SELECT * FROM (SELECT '$clientname' AS clientname, '$clientmac' AS clientmac, '0' AS pwm) AS tmp WHERE NOT EXISTS (SELECT name FROM clients WHERE name = '$clientname' OR mac='$clientmac') LIMIT 1;");
-//	file_put_contents("test.txt", "INSERT INTO clients (name, mac, state) SELECT * FROM (SELECT '$clientname', '$clientmac', '0') AS tmp WHERE NOT EXISTS (SELECT name FROM clients WHERE name = '$clientname' OR mac='$clientmac') LIMIT 1;\n",FILE_APPEND);
     }
     ++$x;
 }
