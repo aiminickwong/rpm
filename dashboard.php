@@ -79,8 +79,6 @@ set_lang();
             </div>
             <div class="modal-body"><div class="te"></div></div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
             </div>
         </div>
         <!-- /.modal-content -->
@@ -109,11 +107,7 @@ set_lang();
     <!-- /.modal-dialog -->
 </div>
 <!-- /.modal -->
-
-
-
     <div id="wrapper">
-
         <!-- Navigation -->
         <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
             <div class="navbar-header">
@@ -126,11 +120,7 @@ set_lang();
                 <a class="navbar-brand" href="<?php echo $serviceurl."/dashboard.php";?>"><?php echo _("Remote Power Management");?></a>
             </div>
             <!-- /.navbar-header -->
-
             <ul class="nav navbar-top-links navbar-right">
-
-
-
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                         <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
@@ -138,8 +128,9 @@ set_lang();
                     <ul class="dropdown-menu dropdown-user">
                         <li><a href="settings.php" data-toggle="modal" data-target="#smallScreen"><i class="fa fa-gear fa-fw"></i><?php echo _("Settings");?></a>
                         </li>
+                        <li><a href="logout.php"><i class="fa fa-sign-out fa-fw"></i><?php echo _("Logout");?></a></li>
                         <li class="divider"></li>
-                        <li><a href="logout.php"><i class="fa fa-sign-out fa-fw"></i><?php echo _("Logout");?></a>
+                        <li><a href="about.php" data-toggle="modal" data-target="#mediumScreen"><i class="fa fa-star-o fa-fw"></i><?php echo _("About");?></a></li>
                         </li>
                     </ul>
                     <!-- /.dropdown-user -->
@@ -147,15 +138,12 @@ set_lang();
                 <!-- /.dropdown -->
             </ul>
             <!-- /.navbar-top-links -->
-
             <div class="navbar-default sidebar" role="navigation">
                 <div class="sidebar-nav navbar-collapse">
                     <ul class="nav" id="side-menu">
                         <li>
                             <a href="<?php echo $serviceurl."/dashboard.php";?>"><i class="fa fa-dashboard fa-fw"></i><?php echo _("Dashboard");?></a>
-                        </li> 
-                        
-                        
+                        </li>
                         <li <?php if (!is_admin()) echo 'class="hidden"';?>>
                             <a href="#"><i class="fa fa-wrench fa-fw"></i><?php echo _("Configuration");?><span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
