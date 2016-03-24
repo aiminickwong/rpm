@@ -124,10 +124,6 @@ msgstr "Išjungti klientai"
 msgid "Number of powered off clients"
 msgstr "Išjungtų klientų skaičius"
 
-#: /var/www/html/rpm/dashboard.php:280
-msgid "Client list"
-msgstr "Klientų sąrašas"
-
 #: /var/www/html/rpm/dashboard.php:288
 msgid "Client name"
 msgstr "Kliento vardas"
@@ -186,3 +182,9 @@ msgstr "Filtruoti pagal grupę"
 
 msgid "All groups"
 msgstr "Visos grupės"
+
+msgid "Service is enabled"
+msgstr "Valdymas įjungtas"
+
+msgid "Service is disabled"
+msgstr "Valdymas išjungtas"

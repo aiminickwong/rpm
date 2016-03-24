@@ -9,13 +9,14 @@ Center of Information Technology Development.
 
 
 Vilnius,Lithuania.
-2016-03-04
+2016-03-24
 */
 require_once("functions/functions.php");
+$config_array=get_SQL_array("SELECT value FROM config WHERE parameter='rpm_state'");
+if ($config_array[0]['value']!=1)
+    exit;
 $mac=$_GET['mac'];
-
 $type=$_GET['type'];
-
 if (empty($mac)&&empty($type))
     exit;
 $x=0;

@@ -9,7 +9,7 @@ Center of Information Technology Development.
 
 
 Vilnius,Lithuania.
-2016-03-08
+2016-03-24
 */
 require_once("functions/functions.php");
 include ("functions/config.php");
@@ -283,14 +283,10 @@ set_lang();
 
             <div class="row">
                 <div class="col-lg-8">
-
-
-
-
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            <?php echo _("Client list");?>
-                            <span class="pull-right"><a href="#" onclick="update_datatable1();"><i class="fa fa-2x icon-border fa-refresh text-info"></i></a></span>
+				    <button type="button" id="service_state" class="btn btn-success" onclick="change_service_state();"></button>
+                            <span class="pull-right"><a href="#" onclick="update_datatable1();"><i class="fa fa-2x fa-refresh text-info"></i></a></span>
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">
@@ -413,10 +409,27 @@ function redraw_info_panels(){
     $('#clients_off_info').text(db_info[3]);
 });
 }
+function refresh_state_buttons(){
+    var service_state = new Array();
+    $.get('read_service_state.php', function(data){
+    service_state = data.split('\n');
+    if (service_state[0]==0){
+	$('#service_state').removeClass('btn-success').addClass('btn-default');
+	$("#service_state").html('<i class="fa fa-square-o"> ' + <?php echo '"' . _("Service is disabled") .'"';?>);
+	document.getElementById('service_state').value=0;
+	}
+    else{
+	$('#service_state').removeClass('btn-default').addClass('btn-success');;
+	$("#service_state").html('<i class="fa fa-check-square-o"> ' + <?php echo '"' . _("Service is enabled") . '"';?>);
+	document.getElementById('service_state').value=1;
+    }
+});
+}
 </script>
 <script>
 $(document).ready(function() {
 	redraw_info_panels();
+	refresh_state_buttons();
 	var oTable=$('#dataTable1').DataTable({
             responsive: true,
 	    pageLength: 50,
@@ -465,10 +478,17 @@ function delete_client(clientid){
 function update_datatable1() {
 	$('#dataTable1').DataTable().ajax.reload(null, false);
     }
-    
-    </script>
+    refresh_state_buttons();
+</script>
 <script>
-
+function change_service_state(){
+    $.post("change_service_state.php",
+    {
+        parameter: 'rpm_state',
+        value: document.getElementById('service_state').value
+    });
+    refresh_state_buttons();
+}
 </script>
     <script>
 	$("#select_all").click(function(){
