@@ -32,6 +32,22 @@ CREATE TABLE `clients` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Table structure for table `config`
+--
+
+DROP TABLE IF EXISTS `config`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `config` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `parameter` varchar(255) COLLATE utf8_lithuanian_ci NOT NULL,
+  `value` varchar(255) COLLATE utf8_lithuanian_ci NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `parameter` (`parameter`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_lithuanian_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Table structure for table `eventlog`
 --
 
@@ -122,4 +138,4 @@ CREATE TABLE `users` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-03-07 13:59:02
+-- Dump completed on 2016-03-24 10:19:23
