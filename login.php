@@ -9,7 +9,7 @@ Center of Information Technology Development.
 
 
 Vilnius,Lithuania.
-2016-03-08
+2016-03-24
 */
 require_once('functions/functions.php');
 include('functions/config.php');
@@ -28,12 +28,12 @@ if(!empty($sql_reply[0])){
         session_set_cookie_params(1200000); 
         session_start();
         $_SESSION['logged']='yes';
-        $_SESSION['id']=$sqlpw[0]['id'];
-        $_SESSION['admin']=$sqlpw[0]['admin'];
+        $_SESSION['id']=$sql_reply[0]['id'];
+        $_SESSION['admin']=$sql_reply[0]['admin'];
 	$_SESSION['ad_user']='no';
 	$_SESSION['username']=$username;
         $ip = $_SERVER['REMOTE_ADDR'];
-        $tmpid=$sqlpw[0]['id'];
+        $tmpid=$sql_reply[0]['id'];
         $data = date("Y.m.d H:i:s");
 	add_SQL_line("UPDATE users SET lastlogin='$data', ip='$ip' WHERE id='$tmpid'");
 	log_event("User $username login success", "LOGIN_SUCCESS");
@@ -92,6 +92,7 @@ if($ad_enable){
         exit;
     }
 }
+
 log_event("User $username login failure", "LOGIN_FAILURE");
 header ("Location: index.php?error=1");
 exit;
