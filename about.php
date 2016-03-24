@@ -23,7 +23,6 @@ set_lang();
 <html>
 <head>
   <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-  <title><?php echo _("Remote Power Management - add users");?></title>  
 </head>
 <body>
     <form method="post" action="change_settings_do.php">
@@ -55,19 +54,4 @@ set_lang();
     </div>
     </form>
 </body>
-<script>
-$(document).ready(function(){
-    $("#submit").click(function(){
-        $.post("change_settings_do.php",
-        {
-          locale: $('#locale').val() 
-        });
-        $(function () {
-	    document.location.reload();
-	    $('#smallScreen').modal('toggle');
-	});
-    });
-});
-
-</script>
 </html>
