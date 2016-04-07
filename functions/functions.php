@@ -39,7 +39,7 @@ function get_SQL_array($sql_line){
 //##############################################################################
 function check_session(){
     session_start();
-    if ($_SESSION['logged']='yes')
+    if ($_SESSION['logged']=='yes')
 	return $_SESSION['logged'];
     else return 0;
 }
