@@ -3,7 +3,7 @@
 Remote Power Management
 Tadas Ustinavičius
 tadas at ring.lt
-2016-04-07
+2016-04-08
 Vilnius, Lithuania.
 */
 function SQL_connect(){
@@ -39,7 +39,7 @@ function get_SQL_array($sql_line){
 //##############################################################################
 function check_session(){
     session_start();
-    if ($_SESSION['logged']=='yes')
+    if ($_SESSION['logged'])
 	return $_SESSION['logged'];
     else return 0;
 }
@@ -53,8 +53,7 @@ function is_admin(){
 //##############################################################################
 function close_session(){
     session_start();
-    $_SESSION['logged']="no";
-//    session_unset();
+    session_unset();
 }
 //##############################################################################
 //check list of variables for any empty value
