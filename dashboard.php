@@ -9,7 +9,7 @@ Center of Information Technology Development.
 
 
 Vilnius,Lithuania.
-2016-03-24
+2016-04-11
 */
 require_once("functions/functions.php");
 include ("functions/config.php");
@@ -446,6 +446,7 @@ $(document).ready(function() {
 	$.ajax({
     	    url: "pm.php",
     	    type: "post",
+	    async: false,
     	    data: $('.clientid').serialize(),
     	    success: function(data) {
     	    $('#response').html(data);
