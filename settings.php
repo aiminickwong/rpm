@@ -67,14 +67,14 @@ set_lang();
 <script>
 $(document).ready(function(){
     $("#submit").click(function(){
-        $.post("change_settings_do.php",
-        {
-          locale: $('#locale').val() 
-        });
-        $(function () {
-	    document.location.reload();
-	    $('#smallScreen').modal('toggle');
+        $.ajax({
+	type: "POST",
+	url: "change_settings_do.php",
+	async: false,
+	data: {locale:$('#locale').val() }
 	});
+	document.location.reload();
+	$('#smallScreen').modal('toggle');
     });
 });
 
