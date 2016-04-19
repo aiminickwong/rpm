@@ -9,7 +9,7 @@ Center of Information Technology Development.
 
 
 Vilnius,Lithuania.
-2016-03-02
+2016-04-19
 */
 include ('functions/config.php');
 require_once('functions/functions.php');
@@ -23,6 +23,9 @@ foreach ($_POST as $key => $value){
 	$state=1;
     else
 	$state=0;
-    add_SQL_line("UPDATE clients SET state='$state' WHERE id='$clientid' LIMIT 1");  
+    add_SQL_line("UPDATE clients SET state='$state' WHERE id='$clientid' LIMIT 1");
+//    file_put_contents("test.txt", "UPDATE clients SET state='$state' WHERE id='$clientid' LIMIT 1 \n",FILE_APPEND);
+
 }
+log_event("Power state changed by " . $_SESSION['fullname'], "PM_STATE_CHANGE");
 ?>

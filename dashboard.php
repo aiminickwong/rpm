@@ -9,7 +9,7 @@ Center of Information Technology Development.
 
 
 Vilnius,Lithuania.
-2016-04-11
+2016-04-19
 */
 require_once("functions/functions.php");
 include ("functions/config.php");
@@ -329,21 +329,8 @@ set_lang();
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">
-                            <div class="list-group">
-				<?php 
-				    $event_array=get_SQL_array("SELECT * FROM eventlog ORDER BY id DESC LIMIT 10");
-				    $x=0;
-				    while ($event_array[$x]['id']){
-					$event_class=$event_array[$x]['type'];
-					$event_class=str_replace("LOGIN_SUCCESS", "fa fa-user fa-fw text-success",$event_class);
-					$event_class=str_replace("LOGIN_FAILURE", "fa fa-user fa-fw text-danger",$event_class);
-					echo '<a href="#" class="list-group-item">
-                                        <i class="' . $event_class . '"></i>' . $event_array[$x]['event'] . '
-                                	<span class="pull-right text-muted small"><em>' . $event_array[$x]['date'] . '</em>
-                                	</span>
-	                                </a>';
-					++$x;
-				    }?>
+                            <div class="list-group" id="event-log">
+
                             </div>
                             <!-- /.list-group -->
                         </div>
@@ -395,6 +382,7 @@ function redraw_info_panels(){
     $('#total_groups_info').text(db_info[1]);
     $('#clients_on_info').text(db_info[2]);
     $('#clients_off_info').text(db_info[3]);
+    $('#event-log').html(db_info[4]);
 });
 }
 function refresh_state_buttons(){
@@ -476,6 +464,7 @@ function change_service_state(){
         parameter: 'rpm_state',
         value: document.getElementById('service_state').value
     });
+    redraw_info_panels();
     refresh_state_buttons();
 }
 </script>

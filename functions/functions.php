@@ -3,7 +3,7 @@
 Remote Power Management
 Tadas Ustinavičius
 tadas at ring.lt
-2016-04-08
+2016-04-19
 Vilnius, Lithuania.
 */
 function SQL_connect(){
@@ -81,4 +81,13 @@ function set_lang(){
 function log_event($event,$type){
     $ip = $_SERVER['REMOTE_ADDR'];
     add_SQL_line("INSERT INTO eventlog (event,type,ip, date) VALUES ('$event','$type','$ip',NOW())");
+}
+//############################################################################
+function draw_event($event){
+    $event=str_replace("LOGIN_SUCCESS", "fa fa-user fa-fw text-success",$event);
+    $event=str_replace("LOGIN_FAILURE", "fa fa-user fa-fw text-danger",$event);
+    $event=str_replace("RPM_STATE_ENABLED", "fa fa-check-square-o fa-fw text-info",$event);
+    $event=str_replace("RPM_STATE_DISABLED", "fa fa-square-o fa-fw text-info",$event);
+    $event=str_replace("PM_STATE_CHANGE", "fa fa-power-off fa-fw text-info",$event);
+    return $event;
 }

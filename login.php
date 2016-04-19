@@ -9,7 +9,7 @@ Center of Information Technology Development.
 
 
 Vilnius,Lithuania.
-2016-03-24
+2016-04-19
 */
 require_once('functions/functions.php');
 include('functions/config.php');
@@ -32,6 +32,7 @@ if(!empty($sql_reply[0])){
         $_SESSION['admin']=$sql_reply[0]['admin'];
 	$_SESSION['ad_user']='no';
 	$_SESSION['username']=$username;
+	$_SESSION['fullname']=$username;
         $ip = $_SERVER['REMOTE_ADDR'];
         $tmpid=$sql_reply[0]['id'];
         $data = date("Y.m.d H:i:s");
@@ -81,12 +82,12 @@ if($ad_enable){
         if (strpos($value, $rpm_admin_group)) {$_SESSION['admin']=1;$allowed=1;}
         if (strpos($value, $rpm_user_group)) {$_SESSION['admin']=0;$allowed=1;}
     }
-    $_SESSION['fullname']=$fullname;
     if ($allowed){
         $_SESSION['logged']='yes';
 	$_SESSION['ad_user']='yes';
 	$_SESSION['username']=$username;
     	$fullname= iconv ("CP1257","UTF-8", $fullname);
+        $_SESSION['fullname']=$fullname;
         log_event("User $fullname login success", "LOGIN_SUCCESS");
         header ("Location: dashboard.php");
         exit;
