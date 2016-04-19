@@ -265,10 +265,6 @@ set_lang();
                     </div>
                 </div>
             </div>
-
-
-
-
             <div class="row">
                 <div class="col-lg-8">
                     <div class="panel panel-default">
@@ -337,10 +333,6 @@ set_lang();
                         <!-- /.panel-body -->
                     </div>
                     <!-- /.panel -->
-
-
-
-                        
                     </div>
                     <!-- /.panel .chat-panel -->
                 </div>
