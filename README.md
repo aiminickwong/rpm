@@ -30,16 +30,16 @@ copy rpm-agent.exe and library files from agent/win32-bin folder to Windows comp
 
 **On Debian bases systems:**
 
-Note: you can use mysql server instead of Maria-db
-apt-get install mariadb-server apache2 php git libapache2-mod-php php-mbstring php-gettext php-ldap
-Create empty database/user on db server.
-cd /var/www/html/
-git clone https://github.com/Seitanas/rpm
-cd rpm
-Edit functions/config.php file to fit your needs.
-Go to http://yourservename/rpm
-If installation is successful, you will be redirected to login page. Default credentials are: admin/password
-
+Note: you can use mysql server instead of Maria-db  
+apt-get install mariadb-server apache2 php git libapache2-mod-php php-mbstring php-gettext php-ldap  
+Create empty database/user on db server.  
+cd /var/www/html/  
+git clone https://github.com/Seitanas/rpm  
+cd rpm  
+Edit functions/config.php file to fit your needs.  
+Go to http://yourservename/rpm  
+If installation is successful, you will be redirected to login page. Default credentials are: admin/password  
+  
 
 ![RPM](http://webjail.ring.lt/rpm/001.png)
 ![RPM](http://webjail.ring.lt/rpm/002.png)
