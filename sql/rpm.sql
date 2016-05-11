@@ -1,4 +1,4 @@
-ii-- MySQL dump 10.15  Distrib 10.0.23-MariaDB, for debian-linux-gnu (x86_64)
+-- MySQL dump 10.15  Distrib 10.0.23-MariaDB, for debian-linux-gnu (x86_64)
 --
 -- Host: localhost    Database: rpm
 -- ------------------------------------------------------

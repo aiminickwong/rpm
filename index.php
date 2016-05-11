@@ -9,8 +9,14 @@ Center of Information Technology Development.
 
 
 Vilnius,Lithuania.
-2016-03-08
+2016-05-11
 */
+include ('functions/config.php');
+require_once('functions/functions.php');
+if (check_db()<1){
+    header("Location:  $serviceurl/install/");
+    exit;
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">

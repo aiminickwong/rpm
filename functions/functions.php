@@ -90,3 +90,20 @@ function draw_event($event){
     $event=str_replace("PM_STATE_CHANGE", "fa fa-power-off fa-fw text-info",$event);
     return $event;
 }
+//############################################################################
+function check_db(){
+    return sizeof(get_SQL_array("SHOW TABLES LIKE 'users'"));
+}
+//############################################################################
+function populate_db(){
+    $mysql_connection=SQL_connect();
+    $sql_file=file_get_contents(dirname(__FILE__) . '/../sql/rpm.sql');
+    $lines=explode(';', $sql_file);
+    $failure=0;
+    foreach($lines as $line) {
+        $result=mysqli_query($mysql_connection,$line);
+        if (!$result)
+            $failure=1;
+    }
+    return $failure;
+}
