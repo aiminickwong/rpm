@@ -1,4 +1,4 @@
--- MySQL dump 10.15  Distrib 10.0.23-MariaDB, for debian-linux-gnu (x86_64)
+ii-- MySQL dump 10.15  Distrib 10.0.23-MariaDB, for debian-linux-gnu (x86_64)
 --
 -- Host: localhost    Database: rpm
 -- ------------------------------------------------------
@@ -28,7 +28,7 @@ CREATE TABLE `clients` (
   `mac` varchar(255) CHARACTER SET latin1 NOT NULL,
   `state` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_lithuanian_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -40,11 +40,11 @@ DROP TABLE IF EXISTS `config`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `config` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `parameter` varchar(255) COLLATE utf8_lithuanian_ci NOT NULL,
-  `value` varchar(255) COLLATE utf8_lithuanian_ci NOT NULL,
+  `parameter` varchar(255) COLLATE utf8_general_ci NOT NULL,
+  `value` varchar(255) COLLATE utf8_general_ci NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `parameter` (`parameter`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_lithuanian_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -56,12 +56,12 @@ DROP TABLE IF EXISTS `eventlog`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `eventlog` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `event` varchar(255) COLLATE utf8_lithuanian_ci NOT NULL,
-  `type` varchar(255) COLLATE utf8_lithuanian_ci NOT NULL,
-  `ip` varchar(255) COLLATE utf8_lithuanian_ci NOT NULL,
+  `event` varchar(255) COLLATE utf8_general_ci NOT NULL,
+  `type` varchar(255) COLLATE utf8_general_ci NOT NULL,
+  `ip` varchar(255) COLLATE utf8_general_ci NOT NULL,
   `date` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_lithuanian_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -76,7 +76,7 @@ CREATE TABLE `groupmap` (
   `group` int(11) NOT NULL,
   `client` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_lithuanian_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -88,9 +88,9 @@ DROP TABLE IF EXISTS `groups`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `groups` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) COLLATE utf8_lithuanian_ci NOT NULL,
+  `name` varchar(255) COLLATE utf8_general_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_lithuanian_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -102,12 +102,12 @@ DROP TABLE IF EXISTS `userconf`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `userconf` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `username` varchar(255) COLLATE utf8_lithuanian_ci NOT NULL,
-  `locale` varchar(255) COLLATE utf8_lithuanian_ci NOT NULL,
+  `username` varchar(255) COLLATE utf8_general_ci NOT NULL,
+  `locale` varchar(255) COLLATE utf8_general_ci NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`),
   UNIQUE KEY `username_2` (`username`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_lithuanian_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -119,14 +119,14 @@ DROP TABLE IF EXISTS `users`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `users` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `username` varchar(255) COLLATE utf8_lithuanian_ci NOT NULL,
-  `password` varchar(255) COLLATE utf8_lithuanian_ci NOT NULL,
+  `username` varchar(255) COLLATE utf8_general_ci NOT NULL,
+  `password` varchar(255) COLLATE utf8_general_ci NOT NULL,
   `admin` tinyint(4) DEFAULT NULL,
-  `ip` varchar(255) COLLATE utf8_lithuanian_ci NOT NULL,
+  `ip` varchar(255) COLLATE utf8_general_ci NOT NULL,
   `lastlogin` datetime NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_lithuanian_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
