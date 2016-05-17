@@ -1,12 +1,14 @@
 [Unit]
-After=syslog.target
 Description=rpm-server
+Wants=network-online.target
+After=network-online.target
 
 [Service]
 Type=simple
 User=root
 ExecStart=/usr/local/bin/rpm-server
 Restart=always
+RestartSec=3
 
 [Install]
 WantedBy=multi-user.target
