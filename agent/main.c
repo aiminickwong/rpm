@@ -242,7 +242,7 @@ int read_config(){
 }
 void read_state(){
     while (get_url());
-        if (strcmp(reply,"POWER_OFF") == 0){
+        if (strcmp(reply,"POWER_OFF\r\n") == 0){
             power_off();
         }
     delay_s(interval);
