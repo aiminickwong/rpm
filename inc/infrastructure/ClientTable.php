@@ -6,10 +6,9 @@ Tadas Ustinavičius
 Vilnius,Lithuania.
 2017-05-24
 */
-
+include dirname(__FILE__) . '/../../functions/config.php';
 require_once(dirname(__FILE__) . '/../../functions/functions.php');
 if (!check_session()){
-    header ("Location: $serviceurl/?error=1");
     exit;
 }
 $client_array = get_SQL_array("SELECT clients.id AS id ,clients.name AS clientname,clients.state AS state,GROUP_CONCAT(groups.name) AS groups,clients.mac AS mac FROM clients LEFT JOIN groupmap ON clients.id=groupmap.client LEFT JOIN groups ON groupmap.group=groups.id GROUP BY clientname");
