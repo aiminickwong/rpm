@@ -2,8 +2,7 @@
 /*
 Remote Power Management
 Tadas Ustinavičius
-tadas at ring.lt
-2016-05-11
+2017-05-24
 Vilnius, Lithuania.
 */
 function SQL_connect(){
@@ -29,7 +28,7 @@ function get_SQL_line($sql_line){
 function get_SQL_array($sql_line){
     $mysql_connection=SQL_connect();
     $q_string = mysqli_query($mysql_connection, $sql_line)or die (mysqli_error($mysql_connection));
-    while ($row=mysqli_fetch_array($q_string)){
+    while ($row=mysqli_fetch_array($q_string, MYSQLI_ASSOC)){
         $query_array[]=$row;
     }
     mysqli_close();
