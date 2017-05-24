@@ -7,7 +7,7 @@ Vilnius,Lithuania.
 2017-05-24
 */
 
-require_once("functions/functions.php");
+require_once(dirname(__FILE__) . '/../../functions/functions.php');
 if (!check_session()){
     header ("Location: $serviceurl/?error=1");
     exit;

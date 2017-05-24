@@ -370,26 +370,26 @@ function refresh_state_buttons(){
 </script>
 <script>
 $(document).ready(function() {
-	redraw_info_panels();
-	refresh_state_buttons();
-	var oTable=$('#dataTable1').DataTable({
-            responsive: true,
-	    pageLength: 50,
-	    destroy: true,
-	    "ajax": 'client_table.php',
-	    aoColumnDefs : [{
-		orderable : false, aTargets : [3]
-		}],
-	    "language": {
-		"emptyTable": "<?php echo _("No data available in table");?>",
-		"lengthMenu": "<?php echo _("Show _MENU_ records");?>",
-		"search": "<?php echo _("Filter records");?>",
-	        "paginate": {
-    		"previous": "<?php echo _("Previous");?>",
-		"next": "<?php echo _("Next");?>"
-		}
-	    }
-        });
+    redraw_info_panels();
+    refresh_state_buttons();
+    var oTable=$('#dataTable1').DataTable({
+        responsive: true,
+        pageLength: 50,
+        destroy: true,
+        "ajax": 'inc/infrastructure/ClientTable.php',
+        aoColumnDefs : [{
+            orderable : false, aTargets : [3]
+        }],
+        "language": {
+        "emptyTable": "<?php echo _("No data available in table");?>",
+        "lengthMenu": "<?php echo _("Show _MENU_ records");?>",
+        "search": "<?php echo _("Filter records");?>",
+            "paginate": {
+            "previous": "<?php echo _("Previous");?>",
+            "next": "<?php echo _("Next");?>"
+            }
+        }
+    });
     $('#group_select').change( function() { 
 	oTable
 	    .columns(2)
