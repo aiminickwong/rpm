@@ -24,7 +24,7 @@ $delete_button = '<div class="btn-group">
     <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
     <i class="fa fa-fw fa-cog"></i><span class="caret"></span></button>
     <ul class="dropdown-menu" role="menu">
-      <li><a href="#" onclick="delete_client(' . $client_array[$x]['id'] . ')">Delete</a></li>
+      <li><a href="#" onclick="delete_client(' . $client_array[$x]['id'] . ')"><i class="fa fa-fw fa-trash"></i>' . _("Delete") .  '</a></li>
     </ul>
   </div>
 ';
