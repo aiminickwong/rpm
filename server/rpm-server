@@ -18,6 +18,10 @@ rpm_address = config.get('server','rpm_address')
 query_interval = config.get('server','query_interval')
 ni.ifaddresses(interface)
 ip = ni.ifaddresses(interface)[2][0]['addr']
+
+headers = {
+    'User-Agent': 'RPM server: https://github.com/Seitanas/rpm'
+}
 def wakeonlan(ethernet_address):
     addr_byte = ethernet_address.split(':')
     hw_addr = struct.pack('BBBBBB', int(addr_byte[0], 16),
@@ -38,7 +42,7 @@ while True:
         s.bind((ip,0))
         s.setsockopt(socket.SOL_SOCKET, socket.SO_BROADCAST, 1)
         link = rpm_address + "/get_pm.php?type=show_power_on"
-        response = requests.get(link, verify=False)
+        response = requests.get(link, verify = False, headers = headers)
         maclist=response.text.split("\n")
         x=0
         for mac_address in maclist:
