@@ -250,31 +250,46 @@ set_lang();
                 <div class="col-lg-8">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-				    <button type="button" id="service_state" class="btn btn-success" onclick="change_service_state();"></button>
-                            <span class="pull-right"><a href="#" onclick="update_datatable1();"><i class="fa fa-2x fa-refresh text-info"></i></a></span>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <button type="button" id="service_state" class="btn btn-success" onclick="change_service_state();"></button>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><?php echo _("Global shutdown at:");?></span>
+                                        <input type="text" class="form-control" id="GlobalShutdownTimeInput" disabled placeholder="23:59">
+                                        <span class="input-group-btn" id="GlobalShutdownEnable">
+                                            <button class="btn btn-default" type="button" id="GlobalShutdownButton"><i class="fa fa-square-o" id="GlobalShutdownCheckBox"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <span class="pull-right"><a href="#" onclick="update_datatable1();"><i class="fa fa-2x fa-refresh text-info"></i></a></span>
+                                </div>
+                            </div>
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">
-			    <div class="row">
-				<div class="col-md-2 col-md-offset-5">
-				    <label for="sel1"><?php echo _("Filter by group:");?></label>
-				    <select class="form-control" id="group_select">
-					<option value=""><?php echo _("All groups");?></option>
-					<?php
-					$group_array=get_SQL_array("SELECT name FROM groups");
-					$x=0;
-					while (!empty($group_array[$x]['name'])){
-					    echo "<option>" . $group_array[$x]['name'] . "</option>\n";
-					    ++$x;
-					    }
-					 ?>
-				    </select>
-				</div>
-			    </div>
-                            <div class="dataTable_wrapper" id="client_list">
-                                <table width="100%" class="table table-striped table-bordered table-hover" id="dataTable1">
-                                    <thead>
-                                        <tr>
+                            <div class="row">
+                                <div class="col-md-2 col-md-offset-5">
+                                    <label for="sel1"><?php echo _("Filter by group:");?></label>
+                                    <select class="form-control" id="group_select">
+                                        <option value=""><?php echo _("All groups");?></option>
+                                    <?php
+                                        $group_array=get_SQL_array("SELECT name FROM groups");
+                                        $x=0;
+                                        while (!empty($group_array[$x]['name'])){
+                                            echo "<option>" . $group_array[$x]['name'] . "</option>\n";
+                                        ++$x;
+                                        }
+                                    ?>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="dataTable_wrapper" id="client_list">
+                             <table width="100%" class="table table-striped table-bordered table-hover" id="dataTable1">
+                                <thead>
+                                    <tr>
                                             <th><?php echo _("Client name");?></th>
                                             <th><?php echo _("MAC address");?></th>
                                             <th><?php echo _("Group");?></th>
@@ -336,6 +351,7 @@ set_lang();
     <script src="inc/bower_components/datatables/media/js/jquery.dataTables.min.js"></script>
     <script src="inc/bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js"></script>
     <script src="inc/bower_components/datatables-responsive/js/dataTables.responsive.js"></script>
+    <script src="inc/js/rpm.js"></script>
     <!-- Custom Theme JavaScript -->
     <script src="inc/dist/js/sb-admin-2.js"></script>
 
