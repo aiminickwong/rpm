@@ -253,7 +253,7 @@ set_lang();
                                     <button type="button" id="service_state" class="btn btn-success" onclick="change_service_state();"></button>
                                 </div>
                                 <div class="col-md-4">
-                                    <div class="input-group">
+                                    <div class="input-group" id="GlobalShutdownTimeFormGroup">
                                         <span class="input-group-addon"><?php echo _("Global shutdown at:");?></span>
                                         <form id="GlobalShutdownForm">
                                             <input type="text" class="form-control" id="GlobalShutdownTimeInput" maxlength="5" disabled placeholder="23:59" pattern="^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$">

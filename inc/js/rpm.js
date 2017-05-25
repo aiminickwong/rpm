@@ -21,6 +21,13 @@ $(document).ready(function(){
 
         });
     }
+    function redrawGlobalShutdown(){
+        $('#GlobalShutdownTimeFormGroup').removeClass('has-warning');
+        $('#GlobalShutdownTimeFormGroup').addClass('has-success');
+        setTimeout(function(){
+            $('#GlobalShutdownTimeFormGroup').removeClass('has-success');
+        }, 2000);
+    }
     function updateGlobalShutdown(change_to, shutdown_time){
         if (!shutdown_time)
             shutdown_time = '23:59';
@@ -32,6 +39,7 @@ $(document).ready(function(){
                     },
                 success:function () {
                     refreshGlobalShutdown();
+                    redrawGlobalShutdown();
                 }
         });
     }
@@ -43,7 +51,9 @@ $(document).ready(function(){
             change_to = 1;
         updateGlobalShutdown(change_to,  $('#GlobalShutdownTimeInput').val());
     });
-
+    $('#GlobalShutdownForm #GlobalShutdownTimeInput').bind('input', function(){
+        $('#GlobalShutdownTimeFormGroup').addClass('has-warning');
+    });
     $("#GlobalShutdownTimeInput").keypress(function (e) {
         if (e.which == 13) {
             if($('#GlobalShutdownForm')[0].checkValidity()){
