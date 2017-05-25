@@ -29,9 +29,7 @@ set_lang();
     <!-- MetisMenu CSS -->
     <link href="inc/metisMenu/dist/metisMenu.min.css" rel="stylesheet">
     <!-- DataTables CSS -->
-    <link href="inc/bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.css" rel="stylesheet">
-    <!-- DataTables Responsive CSS -->
-    <link href="inc/bower_components/datatables-responsive/css/responsive.dataTables.scss" rel="stylesheet">
+    <link href="inc/datatables/datatables.min.css" rel="stylesheet">
     <!-- Timeline CSS -->
     <link href="inc/dist/css/timeline.css" rel="stylesheet">
     <!-- Custom CSS -->
@@ -348,9 +346,7 @@ set_lang();
     <script src="inc/metisMenu/dist/metisMenu.min.js"></script>
     <script src="inc/js/multiselect.js"></script>
     <!-- DataTables JavaScript -->
-    <script src="inc/bower_components/datatables/media/js/jquery.dataTables.min.js"></script>
-    <script src="inc/bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js"></script>
-    <script src="inc/bower_components/datatables-responsive/js/dataTables.responsive.js"></script>
+    <script src="inc/datatables/datatables.min.js"></script>
     <script src="inc/js/rpm.js"></script>
     <!-- Custom Theme JavaScript -->
     <script src="inc/dist/js/sb-admin-2.js"></script>
