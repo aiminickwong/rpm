@@ -21,6 +21,7 @@ $(document).ready(function(){
 
         });
     }
+//==================================================================
     function redrawGlobalShutdown(){
         $('#GlobalShutdownTimeFormGroup').removeClass('has-warning');
         $('#GlobalShutdownTimeFormGroup').addClass('has-success');
@@ -28,6 +29,7 @@ $(document).ready(function(){
             $('#GlobalShutdownTimeFormGroup').removeClass('has-success');
         }, 2000);
     }
+//==================================================================
     function updateGlobalShutdown(change_to, shutdown_time){
         if (!shutdown_time)
             shutdown_time = '23:59';
@@ -43,6 +45,60 @@ $(document).ready(function(){
                 }
         });
     }
+//==================================================================
+    function update_datatable1() {
+        $('#dataTable1').DataTable().ajax.reload(null, false);
+    }
+//==================================================================
+    function redraw_info_panels(){
+        var db_info = new Array();
+        $.get('inc/infrastructure/DBInfo.php', function(data){
+            db_info = data.split('\n');
+            $('#total_clients_info').text(db_info[0]);
+            $('#total_groups_info').text(db_info[1]);
+            $('#clients_on_info').text(db_info[2]);
+            $('#clients_off_info').text(db_info[3]);
+            $('#event-log').html(db_info[4]);
+        });
+    }
+//==================================================================
+    function change_service_state(){
+        $.post('inc/infrastructure/ChangeServiceState.php',
+        {
+            parameter: 'rpm_state',
+            value: document.getElementById('service_state').value
+        });
+        redraw_info_panels();
+        refresh_state_buttons();
+    }
+//==================================================================
+function refresh_state_buttons(){
+    var service_state = new Array();
+    $.getJSON('inc/infrastructure/ReadServiceState.php', function(data){
+        if (data.state == 0){
+            $('#service_state').removeClass('btn-success').addClass('btn-default');
+            $("#service_state").html('<i class="fa fa-square-o"> ' + data.status_text);
+            document.getElementById('service_state').value = 0;
+        }
+        else{
+            $('#service_state').removeClass('btn-default').addClass('btn-success');;
+            $("#service_state").html('<i class="fa fa-check-square-o"> ' + data.status_text);
+            document.getElementById('service_state').value = 1;
+        }
+    });
+}
+//==================================================================
+function deleteClient(clientid){
+    if (confirm('Are you sure?')) {
+        $.post('inc/infrastructure/DeleteClients.php',
+        {
+            clientid: clientid
+        });
+        redraw_info_panels();
+        update_datatable1();
+    }
+}
+//==================================================================
     $('#GlobalShutdownEnable').click(function() {
         var change_to = 0;
         if (global_shutdown == 1)
@@ -51,21 +107,66 @@ $(document).ready(function(){
             change_to = 1;
         updateGlobalShutdown(change_to,  $('#GlobalShutdownTimeInput').val());
     });
+//==================================================================
     $('#GlobalShutdownForm #GlobalShutdownTimeInput').bind('input', function(){
         $('#GlobalShutdownTimeFormGroup').addClass('has-warning');
     });
+//==================================================================
     $("#GlobalShutdownTimeInput").keypress(function (e) {
         if (e.which == 13) {
             if($('#GlobalShutdownForm')[0].checkValidity()){
                 updateGlobalShutdown(global_shutdown,  $('#GlobalShutdownTimeInput').val());
             }
-            //var validator = $("#GlobalShutdownForm");
-
-            //validator.element( "#GlobalShutdownTimeInput" );
         }
-
     });
-
-
+//==================================================================
+    $("#ClientSubmit").click(function(){
+        $.post({
+            url : "inc/infrastructure/AddClients.php",
+                data: {
+                    clients: $('#Clients').val(),
+                },
+                success:function () {
+                    update_datatable1();
+                    redraw_info_panels();
+                    $(function () {
+                        $('#smallScreen').modal('toggle');
+                    });
+                },
+        });
+    });
+//==================================================================
+    $("#SelectAll").click(function(){
+        $('.clientid').not(this).prop('checked', this.checked);
+    });
+//==================================================================
+    $('#dataTable1').on("click", "a.DeleteClientButton", function(){//since table items are dynamically generated, we will not get ordinary .click() event
+        deleteClient($(this).data("id"));
+    });
+//==================================================================
+    $('#RefreshButton').click(function(){
+        update_datatable1();
+    });
+//==================================================================
+    $("#service_state").click(function(){
+        change_service_state();
+    });
+//==================================================================
+    $("#power_submit").click(function(){
+        $.ajax({
+            url: 'inc/infrastructure/PM.php',
+            type: 'post',
+            async: false,
+            data: $('.clientid').serialize(),
+            success: function(data) {
+                $('#response').html(data);
+            }
+        });
+        redraw_info_panels();
+        update_datatable1();
+    });
+//==================================================================
+    redraw_info_panels();
+    refresh_state_buttons();
     refreshGlobalShutdown();
 });

@@ -250,7 +250,7 @@ set_lang();
                         <div class="panel-heading">
                             <div class="row">
                                 <div class="col-md-4">
-                                    <button type="button" id="service_state" class="btn btn-success" onclick="change_service_state();"></button>
+                                    <button type="button" id="service_state" class="btn btn-success"></button>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="input-group" id="GlobalShutdownTimeFormGroup">
@@ -264,7 +264,7 @@ set_lang();
                                     </div>
                                 </div>
                                 <div class="col-md-4">
-                                    <span class="pull-right"><a href="#" onclick="update_datatable1();"><i class="fa fa-2x fa-refresh text-info"></i></a></span>
+                                    <span class="pull-right"><a href="#" id="RefreshButton"><i class="fa fa-2x fa-refresh text-info"></i></a></span>
                                 </div>
                             </div>
                         </div>
@@ -293,7 +293,7 @@ set_lang();
                                             <th><?php echo _("Client name");?></th>
                                             <th><?php echo _("MAC address");?></th>
                                             <th><?php echo _("Group");?></th>
-					    <th><input name="select_all" value="1" id="select_all" type="checkbox"></th>
+					    <th><input name="SelectAll" value="1" id="SelectAll" type="checkbox"></th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -349,41 +349,13 @@ set_lang();
     <script src="inc/js/multiselect.js"></script>
     <!-- DataTables JavaScript -->
     <script src="inc/datatables/datatables.min.js"></script>
-    <script src="inc/js/rpm.js"></script>
     <!-- Custom Theme JavaScript -->
     <script src="inc/dist/js/sb-admin-2.js"></script>
+    <!-- RPM JavaScript -->
+    <script src="inc/js/rpm.js"></script>
 
 <script>
-function redraw_info_panels(){
-    var db_info = new Array();
-    $.get('inc/infrastructure/DBInfo.php', function(data){
-        db_info = data.split('\n');
-        $('#total_clients_info').text(db_info[0]);
-        $('#total_groups_info').text(db_info[1]);
-        $('#clients_on_info').text(db_info[2]);
-        $('#clients_off_info').text(db_info[3]);
-        $('#event-log').html(db_info[4]);
-    });
-}
-function refresh_state_buttons(){
-    var service_state = new Array();
-    $.get('inc/infrastructure/ReadServiceState.php', function(data){
-        service_state = data.split('\n');
-        if (service_state[0]==0){
-            $('#service_state').removeClass('btn-success').addClass('btn-default');
-            $("#service_state").html('<i class="fa fa-square-o"> ' + <?php echo '"' . _("Service is disabled") .'"';?>);
-            document.getElementById('service_state').value=0;
-        }
-        else{
-            $('#service_state').removeClass('btn-default').addClass('btn-success');;
-            $("#service_state").html('<i class="fa fa-check-square-o"> ' + <?php echo '"' . _("Service is enabled") . '"';?>);
-            document.getElementById('service_state').value=1;
-        }
-    });
-}
 $(document).ready(function() {
-    redraw_info_panels();
-    refresh_state_buttons();
     var oTable=$('#dataTable1').DataTable({
         responsive: true,
         pageLength: 50,
@@ -403,49 +375,11 @@ $(document).ready(function() {
         }
     });
     $('#group_select').change( function() { 
-    oTable
-        .columns(2)
-        .search(this.value)
-        .draw();
-       });
-    $("#power_submit").click(function(){
-    $.ajax({
-        url: 'inc/infrastructure/PM.php',
-        type: 'post',
-        async: false,
-        data: $('.clientid').serialize(),
-        success: function(data) {
-            $('#response').html(data);
-        }
+        oTable
+            .columns(2)
+            .search(this.value)
+            .draw();
     });
-    redraw_info_panels();
-    update_datatable1();
-    });
-});
-function delete_client(clientid){
-    if (confirm('Are you sure?')) {
-        $.post('inc/infrastructure/DeleteClients.php',
-        {
-            clientid: clientid
-        });
-        redraw_info_panels();
-        update_datatable1();
-    }
-}
-function update_datatable1() {
-    $('#dataTable1').DataTable().ajax.reload(null, false);
-}
-function change_service_state(){
-    $.post('inc/infrastructure/ChangeServiceState.php',
-    {
-        parameter: 'rpm_state',
-        value: document.getElementById('service_state').value
-    });
-    redraw_info_panels();
-    refresh_state_buttons();
-}
-$("#select_all").click(function(){
-    $('.clientid').not(this).prop('checked', this.checked);
 });
 $(document).on("hidden.bs.modal", function (e) {
     $(e.target).removeData("bs.modal").find(".modal-content").empty();

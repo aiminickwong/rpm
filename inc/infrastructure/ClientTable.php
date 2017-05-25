@@ -4,7 +4,7 @@ Remote Power Management
 Tadas Ustinavičius
 
 Vilnius,Lithuania.
-2017-05-24
+2017-05-25
 */
 include dirname(__FILE__) . '/../../functions/config.php';
 require_once(dirname(__FILE__) . '/../../functions/functions.php');
@@ -23,7 +23,7 @@ $delete_button = '<div class="btn-group">
     <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
     <i class="fa fa-fw fa-cog"></i><span class="caret"></span></button>
     <ul class="dropdown-menu" role="menu">
-      <li><a href="#" onclick="delete_client(' . $client_array[$x]['id'] . ')"><i class="fa fa-fw fa-trash"></i>' . _("Delete") .  '</a></li>
+      <li><a href="#" class="DeleteClientButton" data-id="' . $client_array[$x]['id'] . '"><i class="fa fa-fw fa-trash"></i>' . _("Delete") .  '</a></li>
     </ul>
   </div>
 ';
