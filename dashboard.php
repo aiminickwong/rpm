@@ -25,7 +25,7 @@ set_lang();
     <meta name="author" content="Tadas Ustinavičius">
     <title><?php echo _("Remote Power Management - dashboard");?></title>
     <!-- Bootstrap Core CSS -->
-    <link href="inc/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="inc/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <!-- MetisMenu CSS -->
     <link href="inc/bower_components/metisMenu/dist/metisMenu.min.css" rel="stylesheet">
     <!-- DataTables CSS -->
@@ -343,7 +343,7 @@ set_lang();
     <!-- jQuery -->
     <script src="inc/bower_components/jquery/dist/jquery.min.js"></script>
     <!-- Bootstrap Core JavaScript -->
-    <script src="inc/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="inc/bootstrap/js/bootstrap.min.js"></script>
     <!-- Metis Menu Plugin JavaScript -->
     <script src="inc/bower_components/metisMenu/dist/metisMenu.min.js"></script>
     <script src="inc/js/multiselect.js"></script>
