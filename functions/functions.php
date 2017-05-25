@@ -36,21 +36,24 @@ function get_SQL_array($sql_line){
 }
 //##############################################################################
 function check_session(){
-    session_start();
+    if (session_status() == PHP_SESSION_NONE)
+        session_start();
     if ($_SESSION['logged'])
-	return $_SESSION['logged'];
+        return $_SESSION['logged'];
     else return 0;
 }
 //##############################################################################
 function is_admin(){
-    session_start();
+    if (session_status() == PHP_SESSION_NONE)
+        session_start();
     if ($_SESSION['admin'])
-	return 1;
+        return 1;
     else return 0;
 }
 //##############################################################################
 function close_session(){
-    session_start();
+    if (session_status() == PHP_SESSION_NONE) 
+        session_start();
     session_unset();
 }
 //##############################################################################
