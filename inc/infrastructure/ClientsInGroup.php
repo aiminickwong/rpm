@@ -10,7 +10,6 @@ $client_array=get_SQL_array("SELECT clients.id,clients.name FROM `clients` LEFT 
 if ($side=="from"){
     $client_array_full=get_SQL_array("SELECT clients.id,clients.name FROM `clients` ORDER BY id");
     if (!empty ($client_array)){
-        $clients= array_diff ($client_array_full,$client_array);
         foreach($client_array_full as $aV){
             $aTmp1[] = $aV['id'];
             $aTmp1[] = $aV['name'];
@@ -36,7 +35,7 @@ if ($side=="from"){
 }
 $x=0;
 $json_data='[';
-while ($client_array[$x]['id']){
+while ($x < sizeof($client_array)){
     if ($x!=0)
             $json_data=$json_data.','; //add comma after ], unless it's a last data chunk
     $json_data=$json_data . '{"text": "' . $client_array[$x]['name'] . '",' . "\n" . '"val": "' . $client_array[$x]['id'] . '"' . "\n}"; 
