@@ -80,13 +80,13 @@ set_lang();
 
 <script>
 function load_list(groupid){
-    $.getJSON("clients_in_group.php?side=from&groupid="+groupid, {},  function(json){
+    $.getJSON('inc/infrastructure/ClientsInGroup.php?side=from&groupid=' + groupid, {},  function(json){
         $('#multiselect').empty();
             $.each(json, function(i, obj){
                 $('#multiselect').append($('<option>').text(obj.text).attr('value', obj.val));
             });
     });
-    $.getJSON("clients_in_group.php?side=to&groupid="+groupid, {},  function(json){
+    $.getJSON('inc/infrastructure/ClientsInGroup.php?side=to&groupid=' + groupid, {},  function(json){
         $('#multiselect_to').empty();
             $.each(json, function(i, obj){
                 $('#multiselect_to').append($('<option>').text(obj.text).attr('value', obj.val));

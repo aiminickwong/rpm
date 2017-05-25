@@ -1,5 +1,6 @@
 <?php
-require_once("functions/functions.php");
+include dirname(__FILE__) . '/../../functions/config.php';
+require_once(dirname(__FILE__) . '/../../functions/functions.php');
 if (!is_admin()){
     exit;
 }
@@ -10,28 +11,28 @@ if ($side=="from"){
     $client_array_full=get_SQL_array("SELECT clients.id,clients.name FROM `clients` ORDER BY id");
     if (!empty ($client_array)){
         $clients= array_diff ($client_array_full,$client_array);
-	foreach($client_array_full as $aV){
-	    $aTmp1[] = $aV['id'];
-	    $aTmp1[] = $aV['name'];
-	}
-	foreach($client_array as $aV){
-	    $aTmp2[] = $aV['id'];
-	    $aTmp2[] = $aV['name'];
+        foreach($client_array_full as $aV){
+            $aTmp1[] = $aV['id'];
+            $aTmp1[] = $aV['name'];
         }
-	$tmp_array = array_diff($aTmp1,$aTmp2);
+        foreach($client_array as $aV){
+            $aTmp2[] = $aV['id'];
+            $aTmp2[] = $aV['name'];
+            }
+        $tmp_array = array_diff($aTmp1,$aTmp2);
         $tmp=$mode = current($tmp_array);
-	$x=0;
+        $x=0;
         $client_array=array();
-	while ($tmp){
-	    $client_array[$x]['id']=$tmp;
-	    $tmp = next($tmp_array);
-	    $client_array[$x]['name']=$tmp;
-	    $tmp = next($tmp_array);
-	    ++$x;
-	}
+        while ($tmp){
+            $client_array[$x]['id']=$tmp;
+            $tmp = next($tmp_array);
+            $client_array[$x]['name']=$tmp;
+            $tmp = next($tmp_array);
+            ++$x;
+        }
     }
     else 
-	$client_array=$client_array_full;//if no users has a group, then give out full userlist
+        $client_array=$client_array_full;//if no users has a group, then give out full userlist
 }
 $x=0;
 $json_data='[';
