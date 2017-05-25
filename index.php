@@ -1,4 +1,4 @@
-<?php
+OB<?php
 /*
 Remote Power Management
 Tadas Ustinavičius
@@ -28,9 +28,6 @@ if (check_db()<1){
 
     <!-- Bootstrap Core CSS -->
     <link href="inc/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- MetisMenu CSS -->
-    <link href="inc/bower_components/metisMenu/dist/metisMenu.min.css" rel="stylesheet">
 
     <!-- Custom CSS -->
     <link href="inc/dist/css/sb-admin-2.css" rel="stylesheet">
@@ -85,9 +82,6 @@ if (check_db()<1){
 
     <!-- Bootstrap Core JavaScript -->
     <script src="inc/bootstrap/js/bootstrap.min.js"></script>
-
-    <!-- Metis Menu Plugin JavaScript -->
-    <script src="inc/bower_components/metisMenu/dist/metisMenu.min.js"></script>
 
     <!-- Custom Theme JavaScript -->
     <script src="inc/dist/js/sb-admin-2.js"></script>

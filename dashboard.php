@@ -27,7 +27,7 @@ set_lang();
     <!-- Bootstrap Core CSS -->
     <link href="inc/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <!-- MetisMenu CSS -->
-    <link href="inc/bower_components/metisMenu/dist/metisMenu.min.css" rel="stylesheet">
+    <link href="inc/metisMenu/dist/metisMenu.min.css" rel="stylesheet">
     <!-- DataTables CSS -->
     <link href="inc/bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.css" rel="stylesheet">
     <!-- DataTables Responsive CSS -->
@@ -345,7 +345,7 @@ set_lang();
     <!-- Bootstrap Core JavaScript -->
     <script src="inc/bootstrap/js/bootstrap.min.js"></script>
     <!-- Metis Menu Plugin JavaScript -->
-    <script src="inc/bower_components/metisMenu/dist/metisMenu.min.js"></script>
+    <script src="inc/metisMenu/dist/metisMenu.min.js"></script>
     <script src="inc/js/multiselect.js"></script>
     <!-- DataTables JavaScript -->
     <script src="inc/bower_components/datatables/media/js/jquery.dataTables.min.js"></script>
