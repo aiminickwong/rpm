@@ -2,17 +2,12 @@
 /*
 Remote Power Management
 Tadas Ustinavičius
-tadas at ring.lt
-
-Vilnius University.
-Center of Information Technology Development.
-
 
 Vilnius,Lithuania.
-2016-03-01
+2017-05-25
 */
-include ('functions/config.php');
-require_once('functions/functions.php');
+include dirname(__FILE__) . '/../../functions/config.php';
+require_once(dirname(__FILE__) . '/../../functions/functions.php');
 if (!is_admin()){
     exit;
 }
@@ -29,8 +24,7 @@ if ($client_count&&$groupid){
 }
 while ($client_count>=$x){
     $clientid=addslashes($clientlist[$x]);
-    if (!empty($clientid)){
-	add_SQL_line("INSERT INTO groupmap (`group`, client) SELECT * FROM (SELECT '$groupid' AS groupid, '$clientid' AS clientid) AS tmp WHERE NOT EXISTS (SELECT client FROM groupmap WHERE `group` = '$groupid' AND client='$clientid') LIMIT 1;");
-	}
+    if (!empty($clientid))
+        add_SQL_line("INSERT INTO groupmap (`group`, client) SELECT * FROM (SELECT '$groupid' AS groupid, '$clientid' AS clientid) AS tmp WHERE NOT EXISTS (SELECT client FROM groupmap WHERE `group` = '$groupid' AND client='$clientid') LIMIT 1;");
     ++$x;
 }

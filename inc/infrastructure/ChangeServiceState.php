@@ -2,17 +2,12 @@
 /*
 Remote Power Management
 Tadas Ustinavičius
-tadas at ring.lt
-
-Vilnius University.
-Center of Information Technology Development.
-
 
 Vilnius,Lithuania.
-2016-04-19
+2017-05-25
 */
-include ('functions/config.php');
-require_once('functions/functions.php');
+include dirname(__FILE__) . '/../../functions/config.php';
+require_once(dirname(__FILE__) . '/../../functions/functions.php');
 if (!check_session()){
     exit;
 }
@@ -24,8 +19,8 @@ else
 if (!empty($parameter)){
     add_SQL_line("INSERT INTO config (parameter,value) VALUES ('$parameter','$value') ON DUPLICATE KEY UPDATE value='$value'");
     if ($value==1)
-	log_event("User " . $_SESSION['fullname'] . " has enabled RPM", "RPM_STATE_ENABLED");
+        log_event("User " . $_SESSION['fullname'] . " has enabled RPM", "RPM_STATE_ENABLED");
     if ($value==0)
-	log_event("User " . $_SESSION['fullname'] . " has disabled RPM", "RPM_STATE_DISABLED");
+        log_event("User " . $_SESSION['fullname'] . " has disabled RPM", "RPM_STATE_DISABLED");
 }
 ?>

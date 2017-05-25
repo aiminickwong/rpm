@@ -2,14 +2,9 @@
 /*
 Remote Power Management
 Tadas Ustinavičius
-tadas at ring.lt
-
-Vilnius University.
-Center of Information Technology Development.
-
 
 Vilnius,Lithuania.
-2016-03-01
+2017-05-25
 */
 include ('functions/config.php');
 require_once('functions/functions.php');
@@ -86,50 +81,40 @@ set_lang();
 <script>
 function load_list(groupid){
     $.getJSON("clients_in_group.php?side=from&groupid="+groupid, {},  function(json){
-	    $('#multiselect').empty();
+        $('#multiselect').empty();
             $.each(json, function(i, obj){
-                    $('#multiselect').append($('<option>').text(obj.text).attr('value', obj.val));
+                $('#multiselect').append($('<option>').text(obj.text).attr('value', obj.val));
             });
     });
     $.getJSON("clients_in_group.php?side=to&groupid="+groupid, {},  function(json){
-	    $('#multiselect_to').empty();
+        $('#multiselect_to').empty();
             $.each(json, function(i, obj){
-                    $('#multiselect_to').append($('<option>').text(obj.text).attr('value', obj.val));
+                $('#multiselect_to').append($('<option>').text(obj.text).attr('value', obj.val));
             });
     });
 }
-</script>
-<script>
 $('#grouplist').on('change', function(){
     $groupid=$('#grouplist').val();
     load_list($groupid);
 });
-</script>
-<script>
 $(document).ready(function(){
     $groupid=$('#grouplist').val();
     load_list($groupid);
     $("#submit").click(function(){
-	var multivalues="";
-	$("#multiselect_to option").each(function(){
-    	    multivalues += $(this).val() + ",";
-       });
-        $.post("manage_groupmaps_do.php",
-        {
-          groupid: $('#grouplist').val(),
-          clientlist: multivalues
+        var multivalues="";
+        $("#multiselect_to option").each(function(){
+            multivalues += $(this).val() + ",";
         });
-	update_datatable1();
+        $.post("inc/infrastructure/ManageGroupmaps.php",{
+            groupid: $('#grouplist').val(),
+            clientlist: multivalues
+        });
+        update_datatable1();
         $(function () {
-	    $('#mediumScreen').modal('toggle');
-	});
+            $('#mediumScreen').modal('toggle');
+        });
     });
+    $('#multiselect').multiselect();
 });
 </script>
-
-    <script type="text/javascript">
-    jQuery(document).ready(function($) {
-        $('#multiselect').multiselect();
-    });
-    </script>
 </html>

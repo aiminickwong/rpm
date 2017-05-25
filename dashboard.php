@@ -4,7 +4,7 @@ Remote Power Management
 Tadas Ustinavičius
 
 Vilnius,Lithuania.
-2017-05-24
+2017-05-25
 */
 require_once("functions/functions.php");
 include ("functions/config.php");
@@ -342,33 +342,31 @@ set_lang();
 <script>
 function redraw_info_panels(){
     var db_info = new Array();
-    $.get('db_info.php', function(data){
-	db_info = data.split('\n');
-    $('#total_clients_info').text(db_info[0]);
-    $('#total_groups_info').text(db_info[1]);
-    $('#clients_on_info').text(db_info[2]);
-    $('#clients_off_info').text(db_info[3]);
-    $('#event-log').html(db_info[4]);
-});
+    $.get('inc/infrastructure/DBInfo.php', function(data){
+        db_info = data.split('\n');
+        $('#total_clients_info').text(db_info[0]);
+        $('#total_groups_info').text(db_info[1]);
+        $('#clients_on_info').text(db_info[2]);
+        $('#clients_off_info').text(db_info[3]);
+        $('#event-log').html(db_info[4]);
+    });
 }
 function refresh_state_buttons(){
     var service_state = new Array();
-    $.get('read_service_state.php', function(data){
-    service_state = data.split('\n');
-    if (service_state[0]==0){
-	$('#service_state').removeClass('btn-success').addClass('btn-default');
-	$("#service_state").html('<i class="fa fa-square-o"> ' + <?php echo '"' . _("Service is disabled") .'"';?>);
-	document.getElementById('service_state').value=0;
-	}
-    else{
-	$('#service_state').removeClass('btn-default').addClass('btn-success');;
-	$("#service_state").html('<i class="fa fa-check-square-o"> ' + <?php echo '"' . _("Service is enabled") . '"';?>);
-	document.getElementById('service_state').value=1;
-    }
-});
+    $.get('inc/infrastructure/ReadServiceState.php', function(data){
+        service_state = data.split('\n');
+        if (service_state[0]==0){
+            $('#service_state').removeClass('btn-success').addClass('btn-default');
+            $("#service_state").html('<i class="fa fa-square-o"> ' + <?php echo '"' . _("Service is disabled") .'"';?>);
+            document.getElementById('service_state').value=0;
+        }
+        else{
+            $('#service_state').removeClass('btn-default').addClass('btn-success');;
+            $("#service_state").html('<i class="fa fa-check-square-o"> ' + <?php echo '"' . _("Service is enabled") . '"';?>);
+            document.getElementById('service_state').value=1;
+        }
+    });
 }
-</script>
-<script>
 $(document).ready(function() {
     redraw_info_panels();
     refresh_state_buttons();
@@ -391,43 +389,40 @@ $(document).ready(function() {
         }
     });
     $('#group_select').change( function() { 
-	oTable
-	    .columns(2)
-	    .search(this.value)
-	    .draw();
+    oTable
+        .columns(2)
+        .search(this.value)
+        .draw();
        });
     $("#power_submit").click(function(){
-	$.ajax({
-    	    url: "pm.php",
-    	    type: "post",
-	    async: false,
-    	    data: $('.clientid').serialize(),
-    	    success: function(data) {
-    	    $('#response').html(data);
-	    }
-	});
-	redraw_info_panels();
-	update_datatable1();
+    $.ajax({
+        url: 'inc/infrastructure/PM.php',
+        type: 'post',
+        async: false,
+        data: $('.clientid').serialize(),
+        success: function(data) {
+            $('#response').html(data);
+        }
+    });
+    redraw_info_panels();
+    update_datatable1();
     });
 });
 function delete_client(clientid){
     if (confirm('Are you sure?')) {
-        $.post("delete_clients_do.php",
+        $.post('inc/infrastructure/DeleteClients.php',
         {
-          clientid: clientid
+            clientid: clientid
         });
         redraw_info_panels();
         update_datatable1();
     }
 }
 function update_datatable1() {
-	$('#dataTable1').DataTable().ajax.reload(null, false);
-    }
-    refresh_state_buttons();
-</script>
-<script>
+    $('#dataTable1').DataTable().ajax.reload(null, false);
+}
 function change_service_state(){
-    $.post("change_service_state.php",
+    $.post('inc/infrastructure/ChangeServiceState.php',
     {
         parameter: 'rpm_state',
         value: document.getElementById('service_state').value
@@ -435,19 +430,13 @@ function change_service_state(){
     redraw_info_panels();
     refresh_state_buttons();
 }
+$("#select_all").click(function(){
+    $('.clientid').not(this).prop('checked', this.checked);
+});
+$(document).on("hidden.bs.modal", function (e) {
+    $(e.target).removeData("bs.modal").find(".modal-content").empty();
+});
 </script>
-    <script>
-	$("#select_all").click(function(){
-	    $('.clientid').not(this).prop('checked', this.checked);
-	});
-    </script>
-
-<script >
-        $(document).on("hidden.bs.modal", function (e) {
-            $(e.target).removeData("bs.modal").find(".modal-content").empty();
-        });
-</script>
-
 </body>
 
 </html>
