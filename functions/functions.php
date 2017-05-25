@@ -2,7 +2,7 @@
 /*
 Remote Power Management
 Tadas Ustinavičius
-2017-05-24
+2017-05-25
 Vilnius, Lithuania.
 */
 function SQL_connect(){
@@ -21,7 +21,7 @@ function add_SQL_line($sql_line){
 function get_SQL_line($sql_line){
     $mysql_connection=SQL_connect();
     $result = mysqli_fetch_row(mysqli_query($mysql_connection, $sql_line));
-    mysqli_close();
+    mysqli_close($mysql_connection);
     return $result;
 }
 //##############################################################################
@@ -31,7 +31,7 @@ function get_SQL_array($sql_line){
     while ($row=mysqli_fetch_array($q_string, MYSQLI_ASSOC)){
         $query_array[]=$row;
     }
-    mysqli_close();
+    mysqli_close($mysql_connection);
     return $query_array;
 }
 //##############################################################################
