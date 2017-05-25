@@ -12,8 +12,20 @@ if (!check_session()){
     exit;
 }
 $shutdown_info = get_SQL_array("SELECT * FROM config WHERE parameter = 'global_shutdown' OR parameter = 'global_shutdown_time'");
+$shutdown_array = array();
 if (empty($shutdown_info)){
-    $shutdown_info['global_shutdown'] = 1;
-    $shutdown_info['global_shutdown_time'] = '23:59';
+    $shutdown_array['global_shutdown'] = 0;
+    $shutdown_array['global_shutdown_time'] = '23:59';
 }
-echo json_encode($shutdown_info);
+else {
+    $x=0;
+    while ($x < sizeof($shutdown_info)){
+        if ($shutdown_info[$x]['parameter'] == 'global_shutdown')
+            $shutdown_array['global_shutdown'] = $shutdown_info[$x]['value'];
+        if ($shutdown_info[$x]['parameter'] == 'global_shutdown_time')
+            $shutdown_array['global_shutdown_time'] = $shutdown_info[$x]['value'];
+        ++$x;
+    }
+
+}
+echo json_encode($shutdown_array);

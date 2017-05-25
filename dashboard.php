@@ -255,7 +255,9 @@ set_lang();
                                 <div class="col-md-4">
                                     <div class="input-group">
                                         <span class="input-group-addon"><?php echo _("Global shutdown at:");?></span>
-                                        <input type="text" class="form-control" id="GlobalShutdownTimeInput" disabled placeholder="23:59">
+                                        <form id="GlobalShutdownForm">
+                                            <input type="text" class="form-control" id="GlobalShutdownTimeInput" maxlength="5" disabled placeholder="23:59" pattern="^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$">
+                                        </form>
                                         <span class="input-group-btn" id="GlobalShutdownEnable">
                                             <button class="btn btn-default" type="button" id="GlobalShutdownButton"><i class="fa fa-square-o" id="GlobalShutdownCheckBox"></i></button>
                                         </span>
