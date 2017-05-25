@@ -4,7 +4,7 @@ Remote Power Management
 Tadas Ustinavičius
 
 Vilnius,Lithuania.
-2017-05-24
+2017-05-25
 */
 include ('functions/config.php');
 require_once('functions/functions.php');
@@ -27,7 +27,7 @@ if (check_db()<1){
     <title>Remote Power Management</title>
 
     <!-- Bootstrap Core CSS -->
-    <link href="inc/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="inc/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- MetisMenu CSS -->
     <link href="inc/bower_components/metisMenu/dist/metisMenu.min.css" rel="stylesheet">
@@ -81,10 +81,10 @@ if (check_db()<1){
     </div>
 
     <!-- jQuery -->
-    <script src="inc/bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="inc/js/jquery.min.js"></script>
 
     <!-- Bootstrap Core JavaScript -->
-    <script src="inc/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="inc/bootstrap/js/bootstrap.min.js"></script>
 
     <!-- Metis Menu Plugin JavaScript -->
     <script src="inc/bower_components/metisMenu/dist/metisMenu.min.js"></script>

@@ -101,7 +101,7 @@ $abort=0;
 </div>
 
     <!-- jQuery -->
-    <script src="../inc/bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="../inc/js/jquery.min.js"></script>
 
     <!-- Bootstrap Core JavaScript -->
     <script src="../inc/bootstrap/js/bootstrap.min.js"></script>
