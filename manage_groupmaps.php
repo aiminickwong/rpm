@@ -53,14 +53,14 @@ set_lang();
 		<div class="col-md-4">
 		    <label for="grouplist" class="text-muted"><?php echo _("Group");?></label>
 		    <select class="input-small form-control" id="grouplist" name="grouplist">
-			<?php $group_array=get_SQL_array("SELECT * FROM groups ORDER BY name");
-			$x=0;
-			while ($group_array[$x]['id']){
-			    echo '<option value="' . $group_array[$x]['id'] . '">' . $group_array[$x]['name'] . '</option>';
-			    ++$x;
-			}?>
-		    </select>
-		</div>
+            <?php $group_array=get_SQL_array("SELECT * FROM groups ORDER BY name");
+            $x=0;
+            while ($x < sizeof($group_array)){
+                echo '<option value="' . $group_array[$x]['id'] . '">' . $group_array[$x]['name'] . '</option>';
+                ++$x;
+            }?>
+            </select>
+        </div>
 	    </div>
 	    <div class="row">
 		<div class="col-md-12">
