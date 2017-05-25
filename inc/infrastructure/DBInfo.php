@@ -21,7 +21,7 @@ echo $total_groups_reply[0] . "\n";
 echo $total_clients_on_reply[0] ."\n";
 echo $total_clients_off_reply[0] ."\n";
 $x=0;
-while($event_log_reply[$x]['event']){
+while($x < sizeof($event_log_reply)){
     $event_class=draw_event($event_log_reply[$x]['type']);
     echo '<a href="#" class="list-group-item"><i class="' . $event_class . '"></i>' . $event_log_reply[$x]['event'] . '<span class="pull-right text-muted small"><em>' . $event_log_reply[$x]['date'] . '</em></span></a>';
     ++$x;
