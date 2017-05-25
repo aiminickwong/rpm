@@ -14,7 +14,7 @@ function SQL_connect(){
 function add_SQL_line($sql_line){
     $mysql_connection=SQL_connect();
     mysqli_query($mysql_connection, $sql_line) or die (mysqli_error($mysql_connection));
-    mysqli_close();
+    mysqli_close($mysql_connection);
     return 0;
 }
 //##############################################################################
