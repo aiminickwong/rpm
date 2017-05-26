@@ -1,4 +1,4 @@
-OB<?php
+<?php
 /*
 Remote Power Management
 Tadas Ustinavičius
