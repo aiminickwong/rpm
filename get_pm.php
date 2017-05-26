@@ -58,7 +58,6 @@ while(!empty($mac[$x])){
 }
 if ($shutdown_array['global_shutdown'] == 1){
     if ($curr_time == $shutdown_time){
-        echo "lol";
         add_SQL_line("UPDATE clients SET state = 0 WHERE " . $SQL_query . ")");
     }
 }
