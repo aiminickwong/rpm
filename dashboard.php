@@ -273,7 +273,7 @@ set_lang();
                             <div class="row">
                                 <div class="col-md-2 col-md-offset-5">
                                     <label for="sel1"><?php echo _("Filter by group:");?></label>
-                                    <select class="form-control" id="group_select">
+                                    <select class="form-control" id="GroupSelect">
                                         <option value=""><?php echo _("All groups");?></option>
                                     <?php
                                         $group_array=get_SQL_array("SELECT name FROM groups");
@@ -355,31 +355,23 @@ set_lang();
     <script src="inc/js/rpm.js"></script>
 
 <script>
-$(document).ready(function() {
-    var oTable=$('#dataTable1').DataTable({
-        responsive: true,
-        pageLength: 50,
-        destroy: true,
-        "ajax": 'inc/infrastructure/ClientTable.php',
-        aoColumnDefs : [{
-            orderable : false, aTargets : [3]
-        }],
-        "language": {
-        "emptyTable": "<?php echo _("No data available in table");?>",
-        "lengthMenu": "<?php echo _("Show _MENU_ records");?>",
-        "search": "<?php echo _("Filter records");?>",
-            "paginate": {
-            "previous": "<?php echo _("Previous");?>",
-            "next": "<?php echo _("Next");?>"
-            }
+var oTable=$('#dataTable1').DataTable({
+    responsive: true,
+    pageLength: 50,
+    destroy: true,
+    "ajax": 'inc/infrastructure/ClientTable.php',
+    aoColumnDefs : [{
+       orderable : false, aTargets : [3]
+    }],
+    "language": {
+    "emptyTable": "<?php echo _("No data available in table");?>",
+    "lengthMenu": "<?php echo _("Show _MENU_ records");?>",
+    "search": "<?php echo _("Filter records");?>",
+        "paginate": {
+        "previous": "<?php echo _("Previous");?>",
+        "next": "<?php echo _("Next");?>"
         }
-    });
-    $('#group_select').change( function() { 
-        oTable
-            .columns(2)
-            .search(this.value)
-            .draw();
-    });
+    }
 });
 $(document).on("hidden.bs.modal", function (e) {
     $(e.target).removeData("bs.modal").find(".modal-content").empty();

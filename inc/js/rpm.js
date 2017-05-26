@@ -99,6 +99,13 @@ function deleteClient(clientid){
     }
 }
 //==================================================================
+    $('#GroupSelect').change( function() {
+        oTable
+            .columns(2)
+            .search(this.value)
+            .draw();
+    });
+//==================================================================
     $('#GlobalShutdownEnable').click(function() {
         var change_to = 0;
         if (global_shutdown == 1)
