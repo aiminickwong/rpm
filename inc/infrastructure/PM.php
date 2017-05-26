@@ -4,13 +4,15 @@ Remote Power Management
 Tadas Ustinavičius
 
 Vilnius,Lithuania.
-2017-05-25
+2017-05-26
 */
 include dirname(__FILE__) . '/../../functions/config.php';
 require_once(dirname(__FILE__) . '/../../functions/functions.php');
 if (!check_session()){
     exit;
 }
+if (!isset($_POST))
+    exit;
 foreach ($_POST as $key => $value){
     $clientid=addslashes($key);
     $state=addslashes($value);

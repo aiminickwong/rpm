@@ -34,15 +34,15 @@ $(document).ready(function(){
         if (!shutdown_time)
             shutdown_time = '23:59';
         $.post({
-            url : "inc/infrastructure/GlobalShutdown.php",
-                data: {
-                    change_to: change_to,
-                    shutdown_time: shutdown_time,
-                    },
-                success:function () {
-                    refreshGlobalShutdown();
-                    redrawGlobalShutdown();
-                }
+            url : 'inc/infrastructure/GlobalShutdown.php',
+            data: {
+                change_to: change_to,
+                shutdown_time: shutdown_time,
+            },
+            success:function () {
+                refreshGlobalShutdown();
+                redrawGlobalShutdown();
+            }
         });
     }
 //==================================================================
@@ -63,13 +63,17 @@ $(document).ready(function(){
     }
 //==================================================================
     function changeServiceState(){
-        $.post('inc/infrastructure/ChangeServiceState.php',
-        {
-            parameter: 'rpm_state',
-            value: document.getElementById('ServiceState').value
+        $.post({
+            url : 'inc/infrastructure/ChangeServiceState.php',
+            data: {
+                parameter: 'rpm_state',
+                value: document.getElementById('ServiceState').value,
+            },
+            success:function(){
+                redrawInfoPanels();
+                refreshStateButtons();
+            }
         });
-        redrawInfoPanels();
-        refreshStateButtons();
     }
 //==================================================================
 function refreshStateButtons(){
@@ -89,12 +93,16 @@ function refreshStateButtons(){
 //==================================================================
 function deleteClient(clientid){
     if (confirm('Are you sure?')) {
-        $.post('inc/infrastructure/DeleteClients.php',
-        {
-            clientid: clientid
+        $.post({
+            url : 'inc/infrastructure/DeleteClients.php',
+            data: {
+                clientid: clientid
+            },
+            success:function(){
+                redrawInfoPanels();
+                updateDatatable();
+            },
         });
-        redrawInfoPanels();
-        updateDatatable();
     }
 }
 //==================================================================
@@ -128,17 +136,17 @@ function deleteClient(clientid){
 //==================================================================
     $("#ClientSubmit").click(function(){
         $.post({
-            url : "inc/infrastructure/AddClients.php",
-                data: {
-                    clients: $('#Clients').val(),
-                },
-                success:function () {
-                    updateDatatable();
-                    redrawInfoPanels();
-                    $(function () {
-                        $('#smallScreen').modal('toggle');
-                    });
-                },
+            url : 'inc/infrastructure/AddClients.php',
+            data: {
+                clients: $('#Clients').val(),
+            },
+            success:function () {
+                updateDatatable();
+                redrawInfoPanels();
+                $(function () {
+                    $('#smallScreen').modal('toggle');
+                });
+            },
         });
     });
 //==================================================================
@@ -159,17 +167,15 @@ function deleteClient(clientid){
     });
 //==================================================================
     $("#PowerSubmit").click(function(){
-        $.ajax({
+        $.post({
             url: 'inc/infrastructure/PM.php',
-            type: 'post',
-            async: false,
             data: $('.clientid').serialize(),
             success: function(data) {
                 $('#response').html(data);
-            }
+                redrawInfoPanels();
+                updateDatatable();
+            },
         });
-        redrawInfoPanels();
-        updateDatatable();
     });
 //==================================================================
     redrawInfoPanels();
