@@ -66,24 +66,23 @@ $(document).ready(function(){
         $.post('inc/infrastructure/ChangeServiceState.php',
         {
             parameter: 'rpm_state',
-            value: document.getElementById('service_state').value
+            value: document.getElementById('ServiceState').value
         });
         redrawInfoPanels();
         refreshStateButtons();
     }
 //==================================================================
 function refreshStateButtons(){
-    var service_state = new Array();
     $.getJSON('inc/infrastructure/ReadServiceState.php', function(data){
         if (data.state == 0){
-            $('#service_state').removeClass('btn-success').addClass('btn-default');
-            $("#service_state").html('<i class="fa fa-square-o"> ' + data.status_text);
-            document.getElementById('service_state').value = 0;
+            $('#ServiceState').removeClass('btn-success').addClass('btn-default');
+            $("#ServiceState").html('<i class="fa fa-square-o"> ' + data.status_text);
+            document.getElementById('ServiceState').value = 0;
         }
         else{
-            $('#service_state').removeClass('btn-default').addClass('btn-success');;
-            $("#service_state").html('<i class="fa fa-check-square-o"> ' + data.status_text);
-            document.getElementById('service_state').value = 1;
+            $('#ServiceState').removeClass('btn-default').addClass('btn-success');;
+            $("#ServiceState").html('<i class="fa fa-check-square-o"> ' + data.status_text);
+            document.getElementById('ServiceState').value = 1;
         }
     });
 }
@@ -155,11 +154,11 @@ function deleteClient(clientid){
         updateDatatable();
     });
 //==================================================================
-    $("#service_state").click(function(){
+    $("#ServiceState").click(function(){
         changeServiceState();
     });
 //==================================================================
-    $("#power_submit").click(function(){
+    $("#PowerSubmit").click(function(){
         $.ajax({
             url: 'inc/infrastructure/PM.php',
             type: 'post',

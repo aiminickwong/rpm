@@ -250,7 +250,7 @@ set_lang();
                         <div class="panel-heading">
                             <div class="row">
                                 <div class="col-md-4">
-                                    <button type="button" id="service_state" class="btn btn-success"></button>
+                                    <button type="button" id="ServiceState" class="btn btn-success"></button>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="input-group" id="GlobalShutdownTimeFormGroup">
@@ -299,7 +299,7 @@ set_lang();
                                     <tbody>
                                     </tbody>
                                 </table>
-			    <button type="button" id="power_submit"  class="btn btn-primary center-block"><?php echo _("Power ON/OFF");?></button>
+                <button type="button" id="PowerSubmit"  class="btn btn-primary center-block"><?php echo _("Power ON/OFF");?></button>
                             </div>
 
 
