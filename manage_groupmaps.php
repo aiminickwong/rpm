@@ -4,7 +4,7 @@ Remote Power Management
 Tadas Ustinavičius
 
 Vilnius,Lithuania.
-2017-05-25
+2017-05-26
 */
 include ('functions/config.php');
 require_once('functions/functions.php');
@@ -109,7 +109,7 @@ $(document).ready(function(){
             groupid: $('#grouplist').val(),
             clientlist: multivalues
         });
-        update_datatable1();
+        updateDatatable();
         $(function () {
             $('#mediumScreen').modal('toggle');
         });

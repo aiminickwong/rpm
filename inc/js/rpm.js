@@ -46,11 +46,11 @@ $(document).ready(function(){
         });
     }
 //==================================================================
-    function update_datatable1() {
+    function updateDatatable() {
         $('#dataTable1').DataTable().ajax.reload(null, false);
     }
 //==================================================================
-    function redraw_info_panels(){
+    function redrawInfoPanels(){
         var db_info = new Array();
         $.get('inc/infrastructure/DBInfo.php', function(data){
             db_info = data.split('\n');
@@ -62,17 +62,17 @@ $(document).ready(function(){
         });
     }
 //==================================================================
-    function change_service_state(){
+    function changeServiceState(){
         $.post('inc/infrastructure/ChangeServiceState.php',
         {
             parameter: 'rpm_state',
             value: document.getElementById('service_state').value
         });
-        redraw_info_panels();
-        refresh_state_buttons();
+        redrawInfoPanels();
+        refreshStateButtons();
     }
 //==================================================================
-function refresh_state_buttons(){
+function refreshStateButtons(){
     var service_state = new Array();
     $.getJSON('inc/infrastructure/ReadServiceState.php', function(data){
         if (data.state == 0){
@@ -94,8 +94,8 @@ function deleteClient(clientid){
         {
             clientid: clientid
         });
-        redraw_info_panels();
-        update_datatable1();
+        redrawInfoPanels();
+        updateDatatable();
     }
 }
 //==================================================================
@@ -134,8 +134,8 @@ function deleteClient(clientid){
                     clients: $('#Clients').val(),
                 },
                 success:function () {
-                    update_datatable1();
-                    redraw_info_panels();
+                    updateDatatable();
+                    redrawInfoPanels();
                     $(function () {
                         $('#smallScreen').modal('toggle');
                     });
@@ -152,11 +152,11 @@ function deleteClient(clientid){
     });
 //==================================================================
     $('#RefreshButton').click(function(){
-        update_datatable1();
+        updateDatatable();
     });
 //==================================================================
     $("#service_state").click(function(){
-        change_service_state();
+        changeServiceState();
     });
 //==================================================================
     $("#power_submit").click(function(){
@@ -169,11 +169,11 @@ function deleteClient(clientid){
                 $('#response').html(data);
             }
         });
-        redraw_info_panels();
-        update_datatable1();
+        redrawInfoPanels();
+        updateDatatable();
     });
 //==================================================================
-    redraw_info_panels();
-    refresh_state_buttons();
+    redrawInfoPanels();
+    refreshStateButtons();
     refreshGlobalShutdown();
 });
