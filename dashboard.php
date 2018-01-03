@@ -2,14 +2,9 @@
 /*
 Remote Power Management
 Tadas Ustinavičius
-tadas at ring.lt
-
-Vilnius University.
-Center of Information Technology Development.
-
 
 Vilnius,Lithuania.
-2016-04-19
+2017-05-25
 */
 require_once("functions/functions.php");
 include ("functions/config.php");
@@ -23,48 +18,32 @@ set_lang();
 <html>
 
 <head>
-
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="Tadas Ustinavičius">
-
     <title><?php echo _("Remote Power Management - dashboard");?></title>
-
     <!-- Bootstrap Core CSS -->
-    <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-
+    <link href="inc/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <!-- MetisMenu CSS -->
-    <link href="bower_components/metisMenu/dist/metisMenu.min.css" rel="stylesheet">
-
+    <link href="inc/metisMenu/dist/metisMenu.min.css" rel="stylesheet">
     <!-- DataTables CSS -->
-    <link href="bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.css" rel="stylesheet">
-
-    <!-- DataTables Responsive CSS -->
-    <link href="bower_components/datatables-responsive/css/responsive.dataTables.scss" rel="stylesheet">
-
+    <link href="inc/datatables/datatables.min.css" rel="stylesheet">
     <!-- Timeline CSS -->
-    <link href="dist/css/timeline.css" rel="stylesheet">
-
+    <link href="inc/dist/css/timeline.css" rel="stylesheet">
     <!-- Custom CSS -->
-    <link href="dist/css/sb-admin-2.css" rel="stylesheet">
-
+    <link href="inc/dist/css/sb-admin-2.css" rel="stylesheet">
     <!-- Custom RPM CSS -->
-    <link href="css/rpm.css" rel="stylesheet">
-
+    <link href="inc/css/rpm.css" rel="stylesheet">
     <!-- Custom Fonts -->
-    <link href="bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-	
-
-
+    <link href="inc/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesnt work if you view the page via file:// -->
     <!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-
 </head>
 
 <body>
@@ -269,41 +248,58 @@ set_lang();
                 <div class="col-lg-8">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-				    <button type="button" id="service_state" class="btn btn-success" onclick="change_service_state();"></button>
-                            <span class="pull-right"><a href="#" onclick="update_datatable1();"><i class="fa fa-2x fa-refresh text-info"></i></a></span>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <button type="button" id="ServiceState" class="btn btn-success"></button>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="input-group" id="GlobalShutdownTimeFormGroup">
+                                        <span class="input-group-addon"><?php echo _("Global shutdown at:");?></span>
+                                        <form id="GlobalShutdownForm">
+                                            <input type="text" class="form-control" id="GlobalShutdownTimeInput" maxlength="5" disabled placeholder="23:59" pattern="^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$">
+                                        </form>
+                                        <span class="input-group-btn" id="GlobalShutdownEnable">
+                                            <button class="btn btn-default" type="button" id="GlobalShutdownButton"><i class="fa fa-square-o" id="GlobalShutdownCheckBox"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <span class="pull-right"><a href="#" id="RefreshButton"><i class="fa fa-2x fa-refresh text-info"></i></a></span>
+                                </div>
+                            </div>
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">
-			    <div class="row">
-				<div class="col-md-2 col-md-offset-5">
-				    <label for="sel1"><?php echo _("Filter by group:");?></label>
-				    <select class="form-control" id="group_select">
-					<option value=""><?php echo _("All groups");?></option>
-					<?php
-					$group_array=get_SQL_array("SELECT name FROM groups");
-					$x=0;
-					while (!empty($group_array[$x]['name'])){
-					    echo "<option>" . $group_array[$x]['name'] . "</option>\n";
-					    ++$x;
-					    }
-					 ?>
-				    </select>
-				</div>
-			    </div>
-                            <div class="dataTable_wrapper" id="client_list">
-                                <table width="100%" class="table table-striped table-bordered table-hover" id="dataTable1">
-                                    <thead>
-                                        <tr>
+                            <div class="row">
+                                <div class="col-md-2 col-md-offset-5">
+                                    <label for="sel1"><?php echo _("Filter by group:");?></label>
+                                    <select class="form-control" id="GroupSelect">
+                                        <option value=""><?php echo _("All groups");?></option>
+                                    <?php
+                                        $group_array=get_SQL_array("SELECT name FROM groups");
+                                        $x=0;
+                                        while (!empty($group_array[$x]['name'])){
+                                            echo "<option>" . $group_array[$x]['name'] . "</option>\n";
+                                        ++$x;
+                                        }
+                                    ?>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="dataTable_wrapper" id="client_list">
+                             <table width="100%" class="table table-striped table-bordered table-hover" id="dataTable1">
+                                <thead>
+                                    <tr>
                                             <th><?php echo _("Client name");?></th>
                                             <th><?php echo _("MAC address");?></th>
                                             <th><?php echo _("Group");?></th>
-					    <th><input name="select_all" value="1" id="select_all" type="checkbox"></th>
+					    <th><input name="SelectAll" value="1" id="SelectAll" type="checkbox"></th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                     </tbody>
                                 </table>
-			    <button type="button" id="power_submit"  class="btn btn-primary center-block"><?php echo _("Power ON/OFF");?></button>
+                <button type="button" id="PowerSubmit"  class="btn btn-primary center-block"><?php echo _("Power ON/OFF");?></button>
                             </div>
 
 
@@ -344,134 +340,43 @@ set_lang();
 
     </div>
     <!-- /#wrapper -->
-
     <!-- jQuery -->
-    <script src="bower_components/jquery/dist/jquery.min.js"></script>
-
+    <script src="inc/js/jquery.min.js"></script>
     <!-- Bootstrap Core JavaScript -->
-    <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-
+    <script src="inc/bootstrap/js/bootstrap.min.js"></script>
     <!-- Metis Menu Plugin JavaScript -->
-    <script src="bower_components/metisMenu/dist/metisMenu.min.js"></script>
-
-    <script src="js/multiselect.js"></script>
-
+    <script src="inc/metisMenu/dist/metisMenu.min.js"></script>
+    <script src="inc/js/multiselect.js"></script>
     <!-- DataTables JavaScript -->
-    <script src="bower_components/datatables/media/js/jquery.dataTables.min.js"></script>
-    <script src="bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js"></script>
-    <script src="bower_components/datatables-responsive/js/dataTables.responsive.js"></script>
-
-
+    <script src="inc/datatables/datatables.min.js"></script>
     <!-- Custom Theme JavaScript -->
-    <script src="dist/js/sb-admin-2.js"></script>
+    <script src="inc/dist/js/sb-admin-2.js"></script>
+    <!-- RPM JavaScript -->
+    <script src="inc/js/rpm.js"></script>
 
 <script>
-function redraw_info_panels(){
-    var db_info = new Array();
-    $.get('db_info.php', function(data){
-	db_info = data.split('\n');
-    $('#total_clients_info').text(db_info[0]);
-    $('#total_groups_info').text(db_info[1]);
-    $('#clients_on_info').text(db_info[2]);
-    $('#clients_off_info').text(db_info[3]);
-    $('#event-log').html(db_info[4]);
-});
-}
-function refresh_state_buttons(){
-    var service_state = new Array();
-    $.get('read_service_state.php', function(data){
-    service_state = data.split('\n');
-    if (service_state[0]==0){
-	$('#service_state').removeClass('btn-success').addClass('btn-default');
-	$("#service_state").html('<i class="fa fa-square-o"> ' + <?php echo '"' . _("Service is disabled") .'"';?>);
-	document.getElementById('service_state').value=0;
-	}
-    else{
-	$('#service_state').removeClass('btn-default').addClass('btn-success');;
-	$("#service_state").html('<i class="fa fa-check-square-o"> ' + <?php echo '"' . _("Service is enabled") . '"';?>);
-	document.getElementById('service_state').value=1;
+var oTable=$('#dataTable1').DataTable({
+    responsive: true,
+    pageLength: 50,
+    destroy: true,
+    "ajax": 'inc/infrastructure/ClientTable.php',
+    aoColumnDefs : [{
+       orderable : false, aTargets : [3]
+    }],
+    "language": {
+    "emptyTable": "<?php echo _("No data available in table");?>",
+    "lengthMenu": "<?php echo _("Show _MENU_ records");?>",
+    "search": "<?php echo _("Filter records");?>",
+        "paginate": {
+        "previous": "<?php echo _("Previous");?>",
+        "next": "<?php echo _("Next");?>"
+        }
     }
 });
-}
-</script>
-<script>
-$(document).ready(function() {
-	redraw_info_panels();
-	refresh_state_buttons();
-	var oTable=$('#dataTable1').DataTable({
-            responsive: true,
-	    pageLength: 50,
-	    destroy: true,
-	    "ajax": 'client_table.php',
-	    aoColumnDefs : [{
-		orderable : false, aTargets : [3]
-		}],
-	    "language": {
-		"emptyTable": "<?php echo _("No data available in table");?>",
-		"lengthMenu": "<?php echo _("Show _MENU_ records");?>",
-		"search": "<?php echo _("Filter records");?>",
-	        "paginate": {
-    		"previous": "<?php echo _("Previous");?>",
-		"next": "<?php echo _("Next");?>"
-		}
-	    }
-        });
-    $('#group_select').change( function() { 
-	oTable
-	    .columns(2)
-	    .search(this.value)
-	    .draw();
-       });
-    $("#power_submit").click(function(){
-	$.ajax({
-    	    url: "pm.php",
-    	    type: "post",
-	    async: false,
-    	    data: $('.clientid').serialize(),
-    	    success: function(data) {
-    	    $('#response').html(data);
-	    }
-	});
-	redraw_info_panels();
-	update_datatable1();
-    });
+$(document).on("hidden.bs.modal", function (e) {
+    $(e.target).removeData("bs.modal").find(".modal-content").empty();
 });
-function delete_client(clientid){
-        $.post("delete_clients_do.php",
-        {
-          clientid: clientid
-        });
-	redraw_info_panels();
-	update_datatable1();
-}
-function update_datatable1() {
-	$('#dataTable1').DataTable().ajax.reload(null, false);
-    }
-    refresh_state_buttons();
 </script>
-<script>
-function change_service_state(){
-    $.post("change_service_state.php",
-    {
-        parameter: 'rpm_state',
-        value: document.getElementById('service_state').value
-    });
-    redraw_info_panels();
-    refresh_state_buttons();
-}
-</script>
-    <script>
-	$("#select_all").click(function(){
-	    $('.clientid').not(this).prop('checked', this.checked);
-	});
-    </script>
-
-<script >
-        $(document).on("hidden.bs.modal", function (e) {
-            $(e.target).removeData("bs.modal").find(".modal-content").empty();
-        });
-</script>
-
 </body>
 
 </html>

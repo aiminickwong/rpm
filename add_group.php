@@ -2,14 +2,9 @@
 /*
 Remote Power Management
 Tadas Ustinavičius
-tadas at ring.lt
-
-Vilnius University.
-Center of Information Technology Development.
-
 
 Vilnius,Lithuania.
-2016-03-01
+2016-05-26
 */
 include ('functions/config.php');
 require_once('functions/functions.php');
@@ -50,15 +45,14 @@ set_lang();
 <script>
 $(document).ready(function(){
     $("#submit").click(function(){
-        $.post("add_group_do.php",
-        {
-          groupname: $('#groupname').val() 
+        $.post('inc/infrastructure/AddGroup.php',{
+            groupname: $('#groupname').val() 
         });
-	update_datatable1();
-	redraw_info_panels();
+    updateDatatable();
+    redrawInfoPanels();
         $(function () {
-	    $('#smallScreen').modal('toggle');
-	});
+            $('#smallScreen').modal('toggle');
+        });
     });
 });
 

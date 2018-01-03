@@ -2,8 +2,7 @@
 /*
 Remote Power Management
 Tadas Ustinavičius
-tadas at ring.lt
-2016-05-11
+2017-05-25
 Vilnius, Lithuania.
 */
 function SQL_connect(){
@@ -15,43 +14,46 @@ function SQL_connect(){
 function add_SQL_line($sql_line){
     $mysql_connection=SQL_connect();
     mysqli_query($mysql_connection, $sql_line) or die (mysqli_error($mysql_connection));
-    mysqli_close();
+    mysqli_close($mysql_connection);
     return 0;
 }
 //##############################################################################
 function get_SQL_line($sql_line){
     $mysql_connection=SQL_connect();
     $result = mysqli_fetch_row(mysqli_query($mysql_connection, $sql_line));
-    mysqli_close();
+    mysqli_close($mysql_connection);
     return $result;
 }
 //##############################################################################
 function get_SQL_array($sql_line){
     $mysql_connection=SQL_connect();
     $q_string = mysqli_query($mysql_connection, $sql_line)or die (mysqli_error($mysql_connection));
-    while ($row=mysqli_fetch_array($q_string)){
+    while ($row=mysqli_fetch_array($q_string, MYSQLI_ASSOC)){
         $query_array[]=$row;
     }
-    mysqli_close();
+    mysqli_close($mysql_connection);
     return $query_array;
 }
 //##############################################################################
 function check_session(){
-    session_start();
+    if (session_status() == PHP_SESSION_NONE)
+        session_start();
     if ($_SESSION['logged'])
-	return $_SESSION['logged'];
+        return $_SESSION['logged'];
     else return 0;
 }
 //##############################################################################
 function is_admin(){
-    session_start();
+    if (session_status() == PHP_SESSION_NONE)
+        session_start();
     if ($_SESSION['admin'])
-	return 1;
+        return 1;
     else return 0;
 }
 //##############################################################################
 function close_session(){
-    session_start();
+    if (session_status() == PHP_SESSION_NONE) 
+        session_start();
     session_unset();
 }
 //##############################################################################

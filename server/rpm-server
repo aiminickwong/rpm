@@ -18,6 +18,10 @@ rpm_address = config.get('server','rpm_address')
 query_interval = config.get('server','query_interval')
 ni.ifaddresses(interface)
 ip = ni.ifaddresses(interface)[2][0]['addr']
+
+headers = {
+    'User-Agent': 'RPM server: https://github.com/Seitanas/rpm'
+}
 def wakeonlan(ethernet_address):
     addr_byte = ethernet_address.split(':')
     hw_addr = struct.pack('BBBBBB', int(addr_byte[0], 16),
@@ -28,25 +32,25 @@ def wakeonlan(ethernet_address):
     int(addr_byte[5], 16))
     msg = '\xff' * 6 + hw_addr * 16
     try:
-	s.sendto(msg, (broadcast_address, 7))
+        s.sendto(msg, (broadcast_address, 7))
     except:
-	print "Send error "+ethernet_address
+        print "Send error "+ethernet_address
     return
 while True:
     try:
-	s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-	s.bind((ip,0))
-	s.setsockopt(socket.SOL_SOCKET, socket.SO_BROADCAST, 1)
-	link = rpm_address + "/get_pm.php?type=show_power_on"
-	response = requests.get(link, verify=False)
-	maclist=response.text.split("\n")
-	x=0
-	for mac_address in maclist:
-	    if maclist[x]:
-		t = Thread(target=wakeonlan, args=(maclist[x],))
-		t.start()
-		x += 1
-	s.close()
+        s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        s.bind((ip,0))
+        s.setsockopt(socket.SOL_SOCKET, socket.SO_BROADCAST, 1)
+        link = rpm_address + "/get_pm.php?type=show_power_on"
+        response = requests.get(link, verify = False, headers = headers)
+        maclist=response.text.split("\n")
+        x=0
+        for mac_address in maclist:
+            if maclist[x]:
+                t = Thread(target=wakeonlan, args=(maclist[x],))
+                t.start()
+                x += 1
+        s.close()
     except:
-	print "Create socket error"
+        print "Create socket error"
     time.sleep(float(query_interval))

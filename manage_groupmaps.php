@@ -2,14 +2,9 @@
 /*
 Remote Power Management
 Tadas Ustinavičius
-tadas at ring.lt
-
-Vilnius University.
-Center of Information Technology Development.
-
 
 Vilnius,Lithuania.
-2016-03-01
+2017-05-26
 */
 include ('functions/config.php');
 require_once('functions/functions.php');
@@ -58,14 +53,14 @@ set_lang();
 		<div class="col-md-4">
 		    <label for="grouplist" class="text-muted"><?php echo _("Group");?></label>
 		    <select class="input-small form-control" id="grouplist" name="grouplist">
-			<?php $group_array=get_SQL_array("SELECT * FROM groups ORDER BY name");
-			$x=0;
-			while ($group_array[$x]['id']){
-			    echo '<option value="' . $group_array[$x]['id'] . '">' . $group_array[$x]['name'] . '</option>';
-			    ++$x;
-			}?>
-		    </select>
-		</div>
+            <?php $group_array=get_SQL_array("SELECT * FROM groups ORDER BY name");
+            $x=0;
+            while ($x < sizeof($group_array)){
+                echo '<option value="' . $group_array[$x]['id'] . '">' . $group_array[$x]['name'] . '</option>';
+                ++$x;
+            }?>
+            </select>
+        </div>
 	    </div>
 	    <div class="row">
 		<div class="col-md-12">
@@ -85,51 +80,41 @@ set_lang();
 
 <script>
 function load_list(groupid){
-    $.getJSON("clients_in_group.php?side=from&groupid="+groupid, {},  function(json){
-	    $('#multiselect').empty();
+    $.getJSON('inc/infrastructure/ClientsInGroup.php?side=from&groupid=' + groupid, {},  function(json){
+        $('#multiselect').empty();
             $.each(json, function(i, obj){
-                    $('#multiselect').append($('<option>').text(obj.text).attr('value', obj.val));
+                $('#multiselect').append($('<option>').text(obj.text).attr('value', obj.val));
             });
     });
-    $.getJSON("clients_in_group.php?side=to&groupid="+groupid, {},  function(json){
-	    $('#multiselect_to').empty();
+    $.getJSON('inc/infrastructure/ClientsInGroup.php?side=to&groupid=' + groupid, {},  function(json){
+        $('#multiselect_to').empty();
             $.each(json, function(i, obj){
-                    $('#multiselect_to').append($('<option>').text(obj.text).attr('value', obj.val));
+                $('#multiselect_to').append($('<option>').text(obj.text).attr('value', obj.val));
             });
     });
 }
-</script>
-<script>
 $('#grouplist').on('change', function(){
     $groupid=$('#grouplist').val();
     load_list($groupid);
 });
-</script>
-<script>
 $(document).ready(function(){
     $groupid=$('#grouplist').val();
     load_list($groupid);
     $("#submit").click(function(){
-	var multivalues="";
-	$("#multiselect_to option").each(function(){
-    	    multivalues += $(this).val() + ",";
-       });
-        $.post("manage_groupmaps_do.php",
-        {
-          groupid: $('#grouplist').val(),
-          clientlist: multivalues
+        var multivalues="";
+        $("#multiselect_to option").each(function(){
+            multivalues += $(this).val() + ",";
         });
-	update_datatable1();
+        $.post("inc/infrastructure/ManageGroupmaps.php",{
+            groupid: $('#grouplist').val(),
+            clientlist: multivalues
+        });
+        updateDatatable();
         $(function () {
-	    $('#mediumScreen').modal('toggle');
-	});
+            $('#mediumScreen').modal('toggle');
+        });
     });
+    $('#multiselect').multiselect();
 });
 </script>
-
-    <script type="text/javascript">
-    jQuery(document).ready(function($) {
-        $('#multiselect').multiselect();
-    });
-    </script>
 </html>
